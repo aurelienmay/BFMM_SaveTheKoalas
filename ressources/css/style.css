@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,400,400i,700|Roboto+Slab:700');
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    max-width:1240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* H1 */
+h1 {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#feccb1+0,f17432+71,ea5507+61,fb955e+100;Red+Gloss+%232 */
+    background: rgb(254,204,177); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgb(254,204,177) 0%, rgb(241,116,50) 71%, rgb(234,85,7) 61%, rgb(251,149,94) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgb(254,204,177) 0%,rgb(241,116,50) 71%,rgb(234,85,7) 61%,rgb(251,149,94) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgb(254,204,177) 0%,rgb(241,116,50) 71%,rgb(234,85,7) 61%,rgb(251,149,94) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feccb1', endColorstr='#fb955e',GradientType=0 ); /* IE6-9 */
+    height:150px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 180px;
+    color:white;
+
+    margin-bottom:0px;
+    margin-top: 0px;
+
+    font-family:serif;
+
+}
+
+/* H2 */
+h2{
+    border-bottom:1px solid gray;
+    font-family:serif;
+}
+
+/* Navigation bar */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav ul li {
+    float: left;
+    text-align: center;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Hamburger set as hidden on desktop */
+nav ul li img {
+    visibility: hidden;
+}
+
+nav ul li a:hover:not(.active) {
+    background-color: #111;
+}
+
+nav ul li a.active {
+    background-color: #4CAF50;
+}
+
+nav ul li.right {
+    float: right;
+}
+
+/* Nav - Responsive to mobile */
+@media screen and (max-width: 600px) {
+    nav ul li.right,
+    nav ul li {float: none;}
+
+    /* Show the hamburger, miam */
+    nav ul li img {visibility: visible;}
+
+    /* DEV h1 : having 2 lines in mobile */
+    h1{--lh: 5rem;
+        line-height: var(--lh);}
+}
+
+main{
+    display:flex;
+    max-width:1240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main a{
+    color : coral;
+    text-decoration: none;
+}
+
+header{
+    max-width:1240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section{
+    flex:3;
+    margin-right:30px;
+}
+
+aside{
+    flex:1;
+    margin-top:50px;
+    margin-right:20px;
+}
+
+div {
+    box-shadow: 4px 4px 4px 4px #888;
+    Background-color:white;
+}
+
+header p{
+    font-style: italic;
+    text-align: right;
+    margin-top: 0px;
+}
+h2{
+    margin-bottom: 5px;
+}
+article{
+    padding-left: 35px;
+}
+
+div h3{
+    background-color: #e26633;
+    color:white;
+    padding:5px;
+    margin:0px;
+
+    font-family:serif;
+}
+
+.list_fiche li{
+    list-style-type: none;
+}
+.list_fiche{
+    padding-top:0px;
+    padding-right:40px;
+    padding-left:20px;
+    padding-bottom:20px;
+}
+
+li.active{
+    background-color: white;
+}
+
+li.active a{
+    color: red;
+    background-color: white;
+}
+
+li a{
+    font-weight:bold;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 0px;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    height:100;
+    vertical-align: middle;
+
+    /* Variante 3 : OK */
+    /*OKAY*/
+    background:#454545;
+    text-align: center;
+
+    /* Design */
+    max-width: 1240px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+footer img{
+    width: 240px;
+    height: 65px;
+}
+
+@media screen and (max-width: 770px){
+    main{
+        flex-direction: column;
+    }
+    article{
+        padding-left: 20px;
+    }
+    aside{
+        margin-top: auto;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    footer{
+        position: relative;
+        margin-bottom: 0px;
+    }
+}
