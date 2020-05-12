@@ -1,3 +1,30 @@
+/*-----------------------------------------
+CLASSES
+-----------------------------------------*/
+class Player{
+    constructor() {
+        this.name="";
+        this.score=0;
+    }
+}
+
+/*-----------------------------------------
+INFO MGMT
+-----------------------------------------*/
+var player = new Player();
+
+// Set the name of the player via prompt
+function setPlayerName()
+{
+    player.name = prompt("Hey fireman ! Please enter a nickname");
+}
+
+//Commented for faster rending when launched in dev.
+//setPlayerName();
+
+/*-----------------------------------------
+GAME
+-----------------------------------------*/
 // Create and define the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -9,7 +36,7 @@ document.body.appendChild(canvas);
 var bgReady = false;
 var bgImage = new Image();
 bgImage.onload = function () {
-	bgReady = true;
+    bgReady = true;
 };
 bgImage.src = "ressources/images/background1500px.jpg";
 
@@ -46,7 +73,7 @@ heartEmptyImage.src = "ressources/images/decor/lifes/heart_empty_trans_60.png";
 // Koala image
 var koalaImage = new Image();
 koalaImage.onload = function () {
-	koalaReady = true;
+    koalaReady = true;
 };
 var koala = {};
 koalaImage.src = "ressources/images/koala_50.png";
@@ -75,7 +102,7 @@ splashStateImage.src = "ressources/images/Splash_Down.png";
 var splashReady = false;
 var splashImage = new Image();
 splashImage.onload = function () {
-	splashReady = true;
+    splashReady = true;
 };
 var splash = {};
 
@@ -83,13 +110,13 @@ var splash = {};
 var firemanReady = false;
 var firemanImage = new Image();
 firemanImage.onload = function () {
-	firemanReady = true;
+    firemanReady = true;
 };
 firemanImage.src = "ressources/images/FM_down_50.png";
 
 // Game objects
 var fireman = {
-	speed: 256 // movement in pixels per second
+    speed: 256 // movement in pixels per second
 };
 fireman.x = 50;
 fireman.y = 50;
@@ -110,88 +137,77 @@ var helicoStartX = 1000;
 var helicoStartY = 1000;
 var helicoType = 2;
 
-//Maps
-// 0 = border
-// 1 = burned bush
-// 2 = empty
-// 3 = bush
-// 4 = well (puit)
-// 9 = occuped
-var gameMap =
-        [[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
-        [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
-        [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-        [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
-        [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-        [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-        [0, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-        [0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 0],
-        [0, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
-        [0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 0],
-        [0, 1, 1, 1, 2, 2, 3, 4, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 2, 3, 3, 9, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-        [0, 2, 2, 1, 2, 2, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
-        [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 1, 1, 1, 1, 0],
-        [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
-        [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]];
+// Define level
+var level = 1;
+
+var gameMap;
+
+// Load the correct map corresponding to the level
+switch(level){
+    case 1:
+        var gameMap=gameMap1;
+        break;
+    case 2:
+        var gameMap=gameMap2;
+        break;
+    case 3:
+        var gameMap=gameMap3;
+        break;
+}
 
 // Handle keyboard controls
 var keysDown = {};
 
 addEventListener("keydown", function (e) {
-	keysDown[e.keyCode] = true;
+    keysDown[e.keyCode] = true;
 }, false);
 
 addEventListener("keyup", function (e) {
-	delete keysDown[e.keyCode];
+    delete keysDown[e.keyCode];
 }, false);
 
 var reset = function () {
     fireman.x = 50;
     fireman.y = 50;
-//    firemanImage.src = "ressources/images/FM_down_50.png";
-//    wellImage.src = "ressources/images/decor/well_full_100.png";
+    //    firemanImage.src = "ressources/images/FM_down_50.png";
+    //    wellImage.src = "ressources/images/decor/well_full_100.png";
     render();
 }
 
 // Update game objects
 var update = function (modifier) {
-	if (38 in keysDown) { // Player holding up
+    if (38 in keysDown) { // Player holding up
         // Block to border
         if(fireman.y>50){
-		    fireman.y -= fireman.speed * modifier;
+            fireman.y -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_up_50.png";
-        direction = "up";
+            direction = "up";
         }
-	}
-	if (40 in keysDown) { // Player holding down
+    }
+    if (40 in keysDown) { // Player holding down
         // Block to border
         if(fireman.y<canvas.height-100){
-		    fireman.y += fireman.speed * modifier;
+            fireman.y += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_down_50.png";
-        direction = "down";
+            direction = "down";
         }
-	}
-	if (37 in keysDown) { // Player holding left
+    }
+    if (37 in keysDown) { // Player holding left
         // Block to border
         if(fireman.x>50){
             fireman.x -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_left_50.png";
             direction = "left";
         }
-	}
-	if (39 in keysDown) { // Player holding right
+    }
+    if (39 in keysDown) { // Player holding right
         // Block to border
         if(fireman.x<canvas.width-100){
             fireman.x += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_right_50.png";
-             direction = "right";
+            direction = "right";
         }
-	}
+    }
 
     // Player pressing space for the splash
     document.body.onkeypress = function(e){
@@ -218,32 +234,32 @@ var removeTheSplash = function (){
 var splashing = function () {
     if(ammunition>0){
         switch (direction) {
-        case 'up':
-            splashImage.src = "ressources/images/Splash_Up.png";
-            removeTheSplash();
-            splash.x = fireman.x + 0;
-            splash.y = fireman.y - 70;
-            break;
-        case 'down':
-            splashImage.src = "ressources/images/Splash_Down.png";
-            removeTheSplash();
-            splash.x = fireman.x + 0;
-            splash.y = fireman.y + 90;
-            break;
-        case 'left':
-            splashImage.src = "ressources/images/Splash_Left.png";
-            removeTheSplash();
-            splash.x = fireman.x - 50;
-            splash.y = fireman.y + 10;
-            break;
-        case 'right':
-            splashImage.src = "ressources/images/Splash_Right.png";
-            removeTheSplash();
-            splash.x = fireman.x + 70;
-            splash.y = fireman.y + 10;
-            break;
-        default:
-            splashImage.src = null;
+            case 'up':
+                splashImage.src = "ressources/images/Splash_Up.png";
+                removeTheSplash();
+                splash.x = fireman.x + 0;
+                splash.y = fireman.y - 70;
+                break;
+            case 'down':
+                splashImage.src = "ressources/images/Splash_Down.png";
+                removeTheSplash();
+                splash.x = fireman.x + 0;
+                splash.y = fireman.y + 90;
+                break;
+            case 'left':
+                splashImage.src = "ressources/images/Splash_Left.png";
+                removeTheSplash();
+                splash.x = fireman.x - 50;
+                splash.y = fireman.y + 10;
+                break;
+            case 'right':
+                splashImage.src = "ressources/images/Splash_Right.png";
+                removeTheSplash();
+                splash.x = fireman.x + 70;
+                splash.y = fireman.y + 10;
+                break;
+            default:
+                splashImage.src = null;
         }
     }
 }
@@ -251,52 +267,52 @@ var splashing = function () {
 // Function to check if there are any collision
 function checkCollision(x, y){
     for(let row = 0; row < mapH; ++row)
-	{
-		for(let col = 0; col < mapW; ++col)
-		{
+    {
+        for(let col = 0; col < mapW; ++col)
+        {
             var diff = 15;
             switch(gameMap[row][col]){
-                // Burned bush and fireman
+                    // Burned bush and fireman
                 case 1:
                     bushBurned.x = col*50;
                     bushBurned.y = row*50;
                     if(
                         x+diff <= (bushBurned.x + 50)
                         && bushBurned.x <= (x + 50 - diff)
-		                && y+diff <= (bushBurned.y + 50)
+                        && y+diff <= (bushBurned.y + 50)
                         && bushBurned.y <= (y + 50 - diff))
                     {
                         life--;
                         reset();
                     }
                     break;
-                // Koala
+                    // Koala
                 case 8:
                     koala.x = col*50;
                     koala.y = row*50;
                     if(
                         x+diff <= (koala.x + 50)
                         && koala.x <= (x + 50 - diff)
-		                && y+diff <= (koala.y + 50)
+                        && y+diff <= (koala.y + 50)
                         && koala.y <= (y + 50 - diff))
                     {
                         reset();
                     }
                     break;
-                // Well
+                    // Well
                 case 4:
                     well.x = col*50;
                     well.y = (row*50)+50;
                     if( ammunition < 3
-                        && isWellFull
-                        && x+diff <= (well.x + 100)
-                        && well.x <= (x + 50 - diff)
-		                && y+diff <= (well.y + 50)
-                        && well.y <= (y + 50 - diff))
+                       && isWellFull
+                       && x+diff <= (well.x + 100)
+                       && well.x <= (x + 50 - diff)
+                       && y+diff <= (well.y + 50)
+                       && well.y <= (y + 50 - diff))
                     {
                         wellImage.src = "ressources/images/decor/well_emptyD_100.png";
                         window.setInterval(function(){
-                             wellImage.src = "ressources/images/decor/well_empty_100.png";
+                            wellImage.src = "ressources/images/decor/well_empty_100.png";
                         }, 500);
                         window.clearInterval();
                         isWellFull = false ;
@@ -305,12 +321,12 @@ function checkCollision(x, y){
 
                     // If the well is empty and there is a collision
                     if( !isWellFull
-                        && x+diff <= (well.x + 100)
-                        && well.x <= (x + 50 - diff)
-		                && y+diff <= (well.y + 50)
-                        && well.y <= (y + 50 - diff))
+                       && x+diff <= (well.x + 100)
+                       && well.x <= (x + 50 - diff)
+                       && y+diff <= (well.y + 50)
+                       && well.y <= (y + 50 - diff))
                     {
-                       // Set the image message
+                        // Set the image message
                         wellTextImage.src = "ressources/images/decor/well_text_150.png";
                     }else{
                         wellTextImage.src = "";
@@ -328,9 +344,9 @@ function checkCollision(x, y){
 // Function to move the koala during the game
 function makeTheKoalaMoves(){
     for(let x = 0; x < mapH; ++x)
-	{
-		for(let y = 0; y < mapW; ++y)
-		{
+    {
+        for(let y = 0; y < mapW; ++y)
+        {
             if(gameMap[x][y]==8){
                 setRandomDirection(x, y);
             }
@@ -343,9 +359,9 @@ function setRandomDirection(x, y) {
     var randomChars = 'xy';
     var result = '';
     result = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-   	if(result == 'x'){
+    if(result == 'x'){
         temp = x;
-    	x += Math.round(Math.random()) * 2 - 1;
+        x += Math.round(Math.random()) * 2 - 1;
         while(gameMap[x][y] != 2){
             x = temp;
             x += Math.round(Math.random()) * 2 - 1;
@@ -354,7 +370,7 @@ function setRandomDirection(x, y) {
         gameMap[temp][y] = 2;
     }else{
         temp = y;
-    	y += Math.round(Math.random()) * 2 - 1;
+        y += Math.round(Math.random()) * 2 - 1;
         while(gameMap[x][y] != 2){
             y = temp;
             y += Math.round(Math.random()) * 2 - 1;
@@ -368,19 +384,19 @@ function setRandomDirection(x, y) {
 var render = function () {
 
     // BACKGROUND
-	if (bgReady) {
-		ctx.drawImage(bgImage, 0, 0);
-	}
+    if (bgReady) {
+        ctx.drawImage(bgImage, 0, 0);
+    }
 
     // SAFE ZONE
     ctx.drawImage(safeZoneImage, 50, 50);
 
     // CONSTRUCT THE MAP
     var col=0, row=0;
-	for(let x = 0; x < mapH; ++x)
-	{
-		for(let y = 0; y < mapW; ++y)
-		{
+    for(let x = 0; x < mapH; ++x)
+    {
+        for(let y = 0; y < mapW; ++y)
+        {
             let number = gameMap[x][y];
             var date = new Date();
             var seconds = date.getSeconds();
@@ -389,13 +405,13 @@ var render = function () {
                     ctx.drawImage(borderImage, col*50, row*50);
                     break;
                 case 1:
-//                    if(dateNowForKoala.getSeconds() < seconds) {
-//                        if(seconds%2==0){
-//                            bushBurnedImage.src = "ressources/images/decor/bush_b_50.png";
-//                        }else{
-//                            bushBurnedImage.src = "ressources/images/decor/firedbush_50.png";
-//                        }
-//                    }
+                    //                    if(dateNowForKoala.getSeconds() < seconds) {
+                    //                        if(seconds%2==0){
+                    //                            bushBurnedImage.src = "ressources/images/decor/bush_b_50.png";
+                    //                        }else{
+                    //                            bushBurnedImage.src = "ressources/images/decor/firedbush_50.png";
+                    //                        }
+                    //                    }
                     if(bushBurnedReady){
                         ctx.drawImage(bushBurnedImage, col*50, row*50);
                     }
@@ -410,17 +426,17 @@ var render = function () {
                 case 8:
                     // Move every x seconds (2 now)
                     if(dateNowForKoala.getSeconds()+1 < seconds) {
-//                        makeTheKoalaMoves();
+                        //                        makeTheKoalaMoves();
                         dateNowForKoala = new Date();
                     }
                     ctx.drawImage(koalaImage, col*50, row*50);
                     break;
             }
             col++;
-		}
+        }
         col=0;
         row++;
-	}
+    }
 
     // HELICOPTER ANIMATION
     ctx.drawImage(airstripsImage, 0, 22);
@@ -447,9 +463,9 @@ var render = function () {
 
 
     ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "24px Helvetica";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
+    ctx.font = "24px Helvetica";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
     var date = new Date();
     var seconds = date.getSeconds();
     ctx.fillText("Time " + seconds, 100, 32);
@@ -457,10 +473,10 @@ var render = function () {
 
     // FIREMAN
     if (firemanReady && helicoStartY <= -10) {
-		ctx.drawImage(firemanImage,
+        ctx.drawImage(firemanImage,
                       fireman.x,
                       fireman.y);
-	}
+    }
 
     // SPLASH
     if (splashReady){
@@ -506,19 +522,19 @@ function sleep(milliseconds) {
 
 // The main game loop
 var main = function () {
-	var now = Date.now();
-	var delta = now - then;
+    var now = Date.now();
+    var delta = now - then;
 
     if(helicoStartY<=-10){
         update(delta / 1000);
     }
-	render();
+    render();
 
-	then = now;
+    then = now;
 
-	// Request to do this again ASAP
+    // Request to do this again ASAP
     // a checker !
-	requestAnimationFrame(main);
+    requestAnimationFrame(main);
 };
 
 // Cross-browser support for requestAnimationFrame
