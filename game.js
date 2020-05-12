@@ -16,7 +16,12 @@ bgImage.src = "ressources/images/background1500px.jpg";
 // Burned bush image
 var bushBurnedImage = new Image();
 var bushBurned = {};
-bushBurnedImage.src = "ressources/images/decor/firedbush_50.png";
+var bushBurnedReady = false ;
+bushBurnedImage.src = "ressources/images/decor/burning_bush_50.gif";
+bushBurnedImage.onload = function () {
+    bushBurnedReady = true;
+}
+//var myGif = GIF("https://media.giphy.com/media/cluoH97qdlBd56Izol/giphy.gif");
 
 // Bush image
 var bushImage = new Image();
@@ -64,6 +69,16 @@ heli1Image.src = "ressources/images/decor/Helicopter/helicopter_1.png";
 var airstripsImage = new Image();
 airstripsImage.src = "ressources/images/decor/Helicopter/H1.png";
 
+// Splash
+var splashStateImage = new Image();
+splashStateImage.src = "ressources/images/Splash_Down.png";
+var splashReady = false;
+var splashImage = new Image();
+splashImage.onload = function () {
+	splashReady = true;
+};
+var splash = {};
+
 // fireman image
 var firemanReady = false;
 var firemanImage = new Image();
@@ -88,6 +103,7 @@ var dateNowForKoala = new Date();
 var dateNowForHeli = new Date();
 var temp;
 var ammunition = 3;
+direction = null;
 
 // Helicopter start information
 var helicoStartX = 1000;
@@ -149,7 +165,7 @@ var update = function (modifier) {
         if(fireman.y>50){
 		    fireman.y -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_up_50.png";
-//        direction = "up";
+        direction = "up";
         }
 	}
 	if (40 in keysDown) { // Player holding down
@@ -157,7 +173,7 @@ var update = function (modifier) {
         if(fireman.y<canvas.height-100){
 		    fireman.y += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_down_50.png";
-//        direction = "down";
+        direction = "down";
         }
 	}
 	if (37 in keysDown) { // Player holding left
@@ -165,7 +181,7 @@ var update = function (modifier) {
         if(fireman.x>50){
             fireman.x -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_left_50.png";
-//            direction = "left";
+            direction = "left";
         }
 	}
 	if (39 in keysDown) { // Player holding right
@@ -173,14 +189,14 @@ var update = function (modifier) {
         if(fireman.x<canvas.width-100){
             fireman.x += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_right_50.png";
-//             direction = "right";
+             direction = "right";
         }
 	}
 
     // Player pressing space for the splash
     document.body.onkeypress = function(e){
         if(e.keyCode == 32){
-//            splashing();
+            splashing();
             if(ammunition>0){
                 ammunition -= 1;
             }
@@ -189,6 +205,47 @@ var update = function (modifier) {
 
     // Check for any collisions between fireman and (burned bush, well,...)
     checkCollision(fireman.x, fireman.y);
+}
+
+// Method to remove the splash with timing
+var removeTheSplash = function (){
+    setTimeout (function() {
+        splashImage.src = "";
+    }, 500);
+}
+
+// Setting the splash direction according to the fireman
+var splashing = function () {
+    if(ammunition>0){
+        switch (direction) {
+        case 'up':
+            splashImage.src = "ressources/images/Splash_Up.png";
+            removeTheSplash();
+            splash.x = fireman.x + 0;
+            splash.y = fireman.y - 70;
+            break;
+        case 'down':
+            splashImage.src = "ressources/images/Splash_Down.png";
+            removeTheSplash();
+            splash.x = fireman.x + 0;
+            splash.y = fireman.y + 90;
+            break;
+        case 'left':
+            splashImage.src = "ressources/images/Splash_Left.png";
+            removeTheSplash();
+            splash.x = fireman.x - 50;
+            splash.y = fireman.y + 10;
+            break;
+        case 'right':
+            splashImage.src = "ressources/images/Splash_Right.png";
+            removeTheSplash();
+            splash.x = fireman.x + 70;
+            splash.y = fireman.y + 10;
+            break;
+        default:
+            splashImage.src = null;
+        }
+    }
 }
 
 // Function to check if there are any collision
@@ -332,14 +389,16 @@ var render = function () {
                     ctx.drawImage(borderImage, col*50, row*50);
                     break;
                 case 1:
-                    if(dateNowForKoala.getSeconds() < seconds) {
-                        if(seconds%2==0){
-                            bushBurnedImage.src = "ressources/images/decor/bush_b_50.png";
-                        }else{
-                            bushBurnedImage.src = "ressources/images/decor/firedbush_50.png";
-                        }
+//                    if(dateNowForKoala.getSeconds() < seconds) {
+//                        if(seconds%2==0){
+//                            bushBurnedImage.src = "ressources/images/decor/bush_b_50.png";
+//                        }else{
+//                            bushBurnedImage.src = "ressources/images/decor/firedbush_50.png";
+//                        }
+//                    }
+                    if(bushBurnedReady){
+                        ctx.drawImage(bushBurnedImage, col*50, row*50);
                     }
-                    ctx.drawImage(bushBurnedImage, col*50, row*50);
                     break;
                 case 3:
                     ctx.drawImage(bushImage, col*50, row*50);
@@ -351,7 +410,7 @@ var render = function () {
                 case 8:
                     // Move every x seconds (2 now)
                     if(dateNowForKoala.getSeconds()+1 < seconds) {
-                        makeTheKoalaMoves();
+//                        makeTheKoalaMoves();
                         dateNowForKoala = new Date();
                     }
                     ctx.drawImage(koalaImage, col*50, row*50);
@@ -402,6 +461,11 @@ var render = function () {
                       fireman.x,
                       fireman.y);
 	}
+
+    // SPLASH
+    if (splashReady){
+        ctx.drawImage(splashImage, splash.x, splash.y);
+    }
 
     // HEARTS
     var x1=400;
