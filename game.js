@@ -325,8 +325,24 @@ function checkCollision(x, y){
                         && bushBurned.y <= (y + 50 - collisionMargin))
                     {
                         life--;
-                        isFMCarryingAKoala = false;
-                        gameMap[row][col]=8;
+                        // Put the koala where the fireman died
+                        if(isFMCarryingAKoala){
+                            isFMCarryingAKoala = false;
+                            switch(direction){
+                            case 'up':
+                                gameMap[row+1][col] = 8;
+                                break;
+                            case 'down':
+                                gameMap[row-1][col] = 8;
+                                break;
+                            case 'left':
+                                gameMap[row][col+1] = 8;
+                                break;
+                            case 'right':
+                                gameMap[row][col-1] = 8;
+                                break;
+                            }
+                        }
                         reset();
                     }
 
