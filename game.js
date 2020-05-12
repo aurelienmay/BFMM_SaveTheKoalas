@@ -219,27 +219,27 @@ var splashing = function () {
     if(ammunition>0){
         switch (direction) {
         case 'up':
-            splashImage.src = "ressources/images/Splash_Up.png";
+            splashImage.src = "ressources/images/splash_u.png";
             removeTheSplash();
-            splash.x = fireman.x + 0;
-            splash.y = fireman.y - 70;
+            splash.x = fireman.x + 10;
+            splash.y = fireman.y - 30;
             break;
         case 'down':
-            splashImage.src = "ressources/images/Splash_Down.png";
+            splashImage.src = "ressources/images/splash_d.png";
             removeTheSplash();
-            splash.x = fireman.x + 0;
-            splash.y = fireman.y + 90;
+            splash.x = fireman.x + 10;
+            splash.y = fireman.y + 50;
             break;
         case 'left':
-            splashImage.src = "ressources/images/Splash_Left.png";
+            splashImage.src = "ressources/images/splash_l.png";
             removeTheSplash();
-            splash.x = fireman.x - 50;
+            splash.x = fireman.x - 30;
             splash.y = fireman.y + 10;
             break;
         case 'right':
-            splashImage.src = "ressources/images/Splash_Right.png";
+            splashImage.src = "ressources/images/splash_r.png";
             removeTheSplash();
-            splash.x = fireman.x + 70;
+            splash.x = fireman.x + 50;
             splash.y = fireman.y + 10;
             break;
         default:
@@ -256,10 +256,12 @@ function checkCollision(x, y){
 		{
             var diff = 15;
             switch(gameMap[row][col]){
-                // Burned bush and fireman
+                // Burned bush
                 case 1:
                     bushBurned.x = col*50;
                     bushBurned.y = row*50;
+
+                    // Burned bush and fireman
                     if(
                         x+diff <= (bushBurned.x + 50)
                         && bushBurned.x <= (x + 50 - diff)
@@ -269,8 +271,22 @@ function checkCollision(x, y){
                         life--;
                         reset();
                     }
+
+                    // Burned bush and splash
+                    if (
+		              splash.x <= (bushBurned.x + 30)
+		              && bushBurned.x <= (splash.x + 30)
+		              && splash.y <= (bushBurned.y + 30)
+		              && bushBurned.y <= (splash.y + 30)
+	                ) {
+                      // Collision => stop the fire
+                      gameMap[row][col] = 3 ;
+//		              treeImage.src = "ressources/images/decor/Tree_Transparent_Burned_100.png";
+//                      isTreeOnFire=false;
+	                }
+
                     break;
-                // Koala
+                // Koala and fireman
                 case 8:
                     koala.x = col*50;
                     koala.y = row*50;
@@ -283,7 +299,7 @@ function checkCollision(x, y){
                         reset();
                     }
                     break;
-                // Well
+                // Well and fireman
                 case 4:
                     well.x = col*50;
                     well.y = (row*50)+50;
