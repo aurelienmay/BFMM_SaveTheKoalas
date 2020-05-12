@@ -8,6 +8,7 @@ MAPS
 2 = empty
 3 = bush
 4 = well (puit)
+8 = koala
 9 = occuped
 */
 

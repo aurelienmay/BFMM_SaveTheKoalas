@@ -157,6 +157,9 @@ var dateNowForHeli = new Date();
 var temp;
 var ammunition = 3;
 direction = null;
+koalaSaved = 0;
+var collisionMargin = 15;
+var isFMCarryingAKoala = false ;
 
 // Helicopter start information
 var helicoStartX = 1000;
@@ -292,12 +295,23 @@ var splashing = function () {
 }
 
 // Function to check if there are any collision
+// (x and y are fireman's coordinate)
 function checkCollision(x, y){
+    // Fireman with koala and safety zone
+    if( isFMCarryingAKoala
+        && x <= (50 + 50)
+        && 50 <= (x + 50)
+        && y <= (50 + 50)
+        && 50 <= (y + 50))
+    {
+        koalaSaved++;
+        isFMCarryingAKoala = false ;
+    }
+
     for(let row = 0; row < mapH; ++row)
     {
         for(let col = 0; col < mapW; ++col)
         {
-            var diff = 15;
             switch(gameMap[row][col]){
                 // Burned bush
                 case 1:
@@ -305,12 +319,14 @@ function checkCollision(x, y){
                     bushBurned.y = row*50;
                     // Burned bush and fireman
                     if(
-                        x+diff <= (bushBurned.x + 50)
-                        && bushBurned.x <= (x + 50 - diff)
-                        && y+diff <= (bushBurned.y + 50)
-                        && bushBurned.y <= (y + 50 - diff))
+                        x+collisionMargin <= (bushBurned.x + 50)
+                        && bushBurned.x <= (x + 50 - collisionMargin)
+                        && y+collisionMargin <= (bushBurned.y + 50)
+                        && bushBurned.y <= (y + 50 - collisionMargin))
                     {
                         life--;
+                        isFMCarryingAKoala = false;
+                        gameMap[row][col]=8;
                         reset();
                     }
 
@@ -323,21 +339,21 @@ function checkCollision(x, y){
 	                ) {
                       // Collision => stop the fire
                       gameMap[row][col] = 3 ;
-//		              treeImage.src = "ressources/images/decor/Tree_Transparent_Burned_100.png";
-//                      isTreeOnFire=false;
 	                }
                     break;
                 // Koala
                 case 8:
                     koala.x = col*50;
                     koala.y = row*50;
+                    // Koala and fireman
                     if(
-                        x+diff <= (koala.x + 50)
-                        && koala.x <= (x + 50 - diff)
-                        && y+diff <= (koala.y + 50)
-                        && koala.y <= (y + 50 - diff))
+                        x+collisionMargin <= (koala.x + 50)
+                        && koala.x <= (x + 50 - collisionMargin)
+                        && y+collisionMargin <= (koala.y + 50)
+                        && koala.y <= (y + 50 - collisionMargin))
                     {
-                        reset();
+                        gameMap[row][col] = 2;
+                        isFMCarryingAKoala = true;
                     }
                     break;
                 // Well
@@ -346,10 +362,10 @@ function checkCollision(x, y){
                     well.y = (row*50)+50;
                     if( ammunition < 3
                        && isWellFull
-                       && x+diff <= (well.x + 100)
-                       && well.x <= (x + 50 - diff)
-                       && y+diff <= (well.y + 50)
-                       && well.y <= (y + 50 - diff))
+                       && x+collisionMargin <= (well.x + 100)
+                       && well.x <= (x + 50 - collisionMargin)
+                       && y+collisionMargin <= (well.y + 50)
+                       && well.y <= (y + 50 - collisionMargin))
                     {
                         wellImage.src = "ressources/images/decor/well_emptyD_100.png";
                         window.setInterval(function(){
@@ -362,10 +378,10 @@ function checkCollision(x, y){
 
                     // If the well is empty and there is a collision
                     if( !isWellFull
-                       && x+diff <= (well.x + 100)
-                       && well.x <= (x + 50 - diff)
-                       && y+diff <= (well.y + 50)
-                       && well.y <= (y + 50 - diff))
+                       && x+collisionMargin <= (well.x + 100)
+                       && well.x <= (x + 50 - collisionMargin)
+                       && y+collisionMargin <= (well.y + 50)
+                       && well.y <= (y + 50 - collisionMargin))
                     {
                         // Set the image message
                         wellTextImage.src = "ressources/images/decor/well_text_150.png";
@@ -392,6 +408,9 @@ var render = function () {
 
     // SAFE ZONE
     ctx.drawImage(safeZoneImage, 50, 50);
+    if(koalaSaved==1){
+        ctx.drawImage(koalaImage, 70, 70)
+    }
 
     // CONSTRUCT THE MAP
     var col=0, row=0;
@@ -407,6 +426,7 @@ var render = function () {
                     ctx.drawImage(borderImage, col*50, row*50);
                     break;
                 case 1:
+                    // Fired bush animation (BANCAL AF)
                     //                    if(dateNowForKoala.getSeconds() < seconds) {
                     //                        if(seconds%2==0){
                     //                            bushBurnedImage.src = "ressources/images/decor/bush_b_50.png";
@@ -428,7 +448,7 @@ var render = function () {
                 case 8:
                     // Move every x seconds (2 now)
                     if(dateNowForKoala.getSeconds()+1 < seconds) {
-                        makeTheKoalaMoves(mapH, mapW);
+//                        makeTheKoalaMoves(mapH, mapW);
                         dateNowForKoala = new Date();
                     }
                     ctx.drawImage(koalaImage, col*50, row*50);
@@ -463,7 +483,7 @@ var render = function () {
         heli1Image.src = "ressources/images/decor/Helicopter/helicopter_s_2.png";
     }
 
-
+    // TEXT
     ctx.fillStyle = "rgb(250, 250, 250)";
     ctx.font = "24px Helvetica";
     ctx.textAlign = "left";
@@ -471,7 +491,7 @@ var render = function () {
     var date = new Date();
     var seconds = date.getSeconds();
     ctx.fillText("Time " + seconds, 100, 32);
-    ctx.fillText("Ammunition : " + ammunition, 800, 32);
+    ctx.fillText("Koala saved : " + koalaSaved + "/1", 100, 0);
 
     // FIREMAN
     if (firemanReady && helicoStartY <= -10) {
@@ -483,6 +503,24 @@ var render = function () {
     // SPLASH
     if (splashReady){
         ctx.drawImage(splashImage, splash.x, splash.y);
+    }
+
+    // Ammunition
+    var x1=900;
+    var x2=x1-80;
+    var x3=x2-80;
+    var y=10;
+    if(ammunition == 1){
+        ctx.drawImage(splashStateImage, x1, y);
+    }
+    if(ammunition == 2){
+        ctx.drawImage(splashStateImage, x1, y);
+        ctx.drawImage(splashStateImage, x2, y);
+    }
+    if(ammunition == 3){
+        ctx.drawImage(splashStateImage, x1, y);
+        ctx.drawImage(splashStateImage, x2, y);
+        ctx.drawImage(splashStateImage, x3, y);
     }
 
     // HEARTS
