@@ -235,6 +235,7 @@ var splashing = function () {
     if(ammunition>0){
         switch (direction) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         case 'up':
             splashImage.src = "ressources/images/splash_u.png";
             removeTheSplash();
@@ -262,6 +263,8 @@ var splashing = function () {
         default:
             splashImage.src = null;
 =======
+=======
+>>>>>>> origin/master
             case 'up':
                 splashImage.src = "ressources/images/Splash_Up.png";
                 removeTheSplash();
@@ -288,6 +291,9 @@ var splashing = function () {
                 break;
             default:
                 splashImage.src = null;
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
         }
     }
@@ -302,7 +308,11 @@ function checkCollision(x, y){
             var diff = 15;
             switch(gameMap[row][col]){
 <<<<<<< HEAD
+<<<<<<< HEAD
                 // Burned bush
+=======
+                    // Burned bush and fireman
+>>>>>>> origin/master
 =======
                     // Burned bush and fireman
 >>>>>>> origin/master
@@ -336,7 +346,11 @@ function checkCollision(x, y){
 
                     break;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 // Koala and fireman
+=======
+                    // Koala
+>>>>>>> origin/master
 =======
                     // Koala
 >>>>>>> origin/master
@@ -353,7 +367,11 @@ function checkCollision(x, y){
                     }
                     break;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 // Well and fireman
+=======
+                    // Well
+>>>>>>> origin/master
 =======
                     // Well
 >>>>>>> origin/master
