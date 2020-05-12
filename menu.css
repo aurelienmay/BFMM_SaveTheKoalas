@@ -1,3 +1,6 @@
+*{
+    background: green;
+}
 body{
     display: flex;
     flex-direction: column;
@@ -9,13 +12,13 @@ header{
 h1{
     padding: 0px;
     margin: 0px;
+    font-size: 40px;
 }
 main{
     display: flex;
     flex-direction: row;
 }
 #menu{
-    background: pink;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -25,22 +28,17 @@ main{
     flex-direction: column;
     padding: 20px;
 }
-#test{
-    background: green;
-}
 button{
     padding-top: 10px;
     padding-bottom: 10px;
     width: 200px;
     margin: 10px;
     border-radius: 10px;
+    background: orange;
+    font-size: 30px;
 }
-
-#game{
-    width: 85%;
-    background: grey;
-}
-script{
-    width: 85%;
-    background: grey;
+canvas{
+    margin-left: 200px;
+    padding-left: 200px;
+    width: 900px;
 }

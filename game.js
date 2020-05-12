@@ -51,11 +51,12 @@ function onFailedLoc(){
 GAME
 -----------------------------------------*/
 // Create and define the canvas
-var canvas = document.createElement("canvas");
+//var canvas = document.createElement("canvas");
+var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 canvas.width = 1000;
 canvas.height = 1000;
-document.body.appendChild(canvas);
+//document.body.appendChild(canvas);
 
 // Background image
 var bgReady = false;

@@ -2,7 +2,6 @@ window.onload = function(){
     document.getElementById("play").style.display = "none";
     document.getElementById("rules").style.display = "none";
     document.getElementById("hallfame").style.display = "none";
-    document.getElementById("game").style.display = "none";
 
     //Declare the buttons
     var rulesButton = document.getElementById("rulesButton");
