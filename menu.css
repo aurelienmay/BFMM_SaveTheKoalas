@@ -1,5 +1,5 @@
 *{
-    background: green;
+    background: #3dcf3d;
 }
 body{
     display: flex;
@@ -21,24 +21,35 @@ main{
 #menu{
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    margin: auto;
 }
 #play{
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin: auto;
 }
 button{
     padding-top: 10px;
     padding-bottom: 10px;
     width: 200px;
-    margin: 10px;
+    margin: 30px;
     border-radius: 10px;
-    background: orange;
+    background: #ffd940;
     font-size: 30px;
 }
+#cancel{
+    background: red;
+    color: aliceblue;
+}
 canvas{
-    margin-left: 200px;
-    padding-left: 200px;
+    margin: auto;
     width: 900px;
+    margin-right: 30px;
+}
+p{
+    font-size: 30px;
+}
+#rules{
+    margin: auto;
 }
