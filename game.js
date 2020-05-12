@@ -4,7 +4,9 @@ CLASSES
 class Player{
     constructor() {
         this.name="";
+        this.level=0;
         this.score=0;
+        this.country="";
     }
 }
 
@@ -19,8 +21,31 @@ function setPlayerName()
     player.name = prompt("Hey fireman ! Please enter a nickname");
 }
 
+/*-----------------------------------------
+GEOLOCALISATION MGMT
+-----------------------------------------*/
+function getLocalisation()
+{
+    // Controls whether the browser supports localization
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(onSuccessLoc, onFailedLoc); // One parameter if it succeeds and one if it fails
+    }
+    else{
+        onFailedLoc();
+    }
+}
+
+function onSuccessLoc(){
+
+}
+
+function onFailedLoc(){
+    player.country = "Unknown"
+}
+
 //Commented for faster rending when launched in dev.
 //setPlayerName();
+//getLocalisation();
 
 /*-----------------------------------------
 GAME
@@ -139,6 +164,7 @@ var helicoType = 2;
 
 // Define level
 var level = 1;
+player.level = level;
 
 var gameMap;
 
@@ -234,37 +260,6 @@ var removeTheSplash = function (){
 var splashing = function () {
     if(ammunition>0){
         switch (direction) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        case 'up':
-            splashImage.src = "ressources/images/splash_u.png";
-            removeTheSplash();
-            splash.x = fireman.x + 10;
-            splash.y = fireman.y - 30;
-            break;
-        case 'down':
-            splashImage.src = "ressources/images/splash_d.png";
-            removeTheSplash();
-            splash.x = fireman.x + 10;
-            splash.y = fireman.y + 50;
-            break;
-        case 'left':
-            splashImage.src = "ressources/images/splash_l.png";
-            removeTheSplash();
-            splash.x = fireman.x - 30;
-            splash.y = fireman.y + 10;
-            break;
-        case 'right':
-            splashImage.src = "ressources/images/splash_r.png";
-            removeTheSplash();
-            splash.x = fireman.x + 50;
-            splash.y = fireman.y + 10;
-            break;
-        default:
-            splashImage.src = null;
-=======
-=======
->>>>>>> origin/master
             case 'up':
                 splashImage.src = "ressources/images/Splash_Up.png";
                 removeTheSplash();
@@ -291,10 +286,6 @@ var splashing = function () {
                 break;
             default:
                 splashImage.src = null;
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
         }
     }
 }
@@ -307,20 +298,10 @@ function checkCollision(x, y){
         {
             var diff = 15;
             switch(gameMap[row][col]){
-<<<<<<< HEAD
-<<<<<<< HEAD
-                // Burned bush
-=======
                     // Burned bush and fireman
->>>>>>> origin/master
-=======
-                    // Burned bush and fireman
->>>>>>> origin/master
                 case 1:
                     bushBurned.x = col*50;
                     bushBurned.y = row*50;
-
-                    // Burned bush and fireman
                     if(
                         x+diff <= (bushBurned.x + 50)
                         && bushBurned.x <= (x + 50 - diff)
@@ -330,30 +311,8 @@ function checkCollision(x, y){
                         life--;
                         reset();
                     }
-
-                    // Burned bush and splash
-                    if (
-		              splash.x <= (bushBurned.x + 30)
-		              && bushBurned.x <= (splash.x + 30)
-		              && splash.y <= (bushBurned.y + 30)
-		              && bushBurned.y <= (splash.y + 30)
-	                ) {
-                      // Collision => stop the fire
-                      gameMap[row][col] = 3 ;
-//		              treeImage.src = "ressources/images/decor/Tree_Transparent_Burned_100.png";
-//                      isTreeOnFire=false;
-	                }
-
                     break;
-<<<<<<< HEAD
-<<<<<<< HEAD
-                // Koala and fireman
-=======
                     // Koala
->>>>>>> origin/master
-=======
-                    // Koala
->>>>>>> origin/master
                 case 8:
                     koala.x = col*50;
                     koala.y = row*50;
@@ -366,15 +325,7 @@ function checkCollision(x, y){
                         reset();
                     }
                     break;
-<<<<<<< HEAD
-<<<<<<< HEAD
-                // Well and fireman
-=======
                     // Well
->>>>>>> origin/master
-=======
-                    // Well
->>>>>>> origin/master
                 case 4:
                     well.x = col*50;
                     well.y = (row*50)+50;
