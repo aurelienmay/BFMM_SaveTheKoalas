@@ -1,0 +1,46 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+header{
+    width: 100%;
+    text-align: center;
+}
+h1{
+    padding: 0px;
+    margin: 0px;
+}
+main{
+    display: flex;
+    flex-direction: row;
+}
+#menu{
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+#play{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+#test{
+    background: green;
+}
+button{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+#game{
+    width: 85%;
+    background: grey;
+}
+script{
+    width: 85%;
+    background: grey;
+}

@@ -4,39 +4,47 @@
         <title>Save the koalas game</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="ressources/css/style.css">
+        <link rel="stylesheet" href="menu.css">
+        <script src="menu.js"></script>
 
     </head>
     <body>
-
-<!--
         <header>
-            <h1>Save the koalas game</h1>
-            <nav>
-                <ul>
-                     //Hamburger
-                    <li class="hamburger">
-                        <img src='ressources/images/hamburger_icon.svg'>
-                    </li>
-                    <li>
-                        <a href="home.html">How to play</a>
-                    </li>
-                    <li class="active">
-                        <a href="game.html">Play game</a>
-                    </li>
-                    <li >
-                        <a href="hall_of_fame.html">Hall of fame</a>
-                    </li>
-                </ul>
-            </nav>
+            <h1>Save the koalas</h1>
         </header>
--->
 
         <main>
-            <script src="game.js"></script>
+            <div id="menu">
+                <button id="playButton">Play</button>
+                <button id="rulesButton">Rules</button>
+                <button>Hall of fame</button>
+                <button onclick="window.location.href = 'Website/description.html';">WebSite</button>
+            </div>
+
+            <div id="play">
+                <button>Level 1</button>
+                <button>Level 2</button>
+                <button>Level 3</button>
+            </div>
+
+            <div id="rules">
+                <h1>Rules</h1>
+                <p>
+                You have to save de koala from the fire...
+                </p>
+                <button id="ok">Ok</button>
+            </div>
+
+            <div id="hallfame">
+                <h1>Hall of fame</h1>
+            </div>
+
+            <div id="test">Vasi sa me casse les couilles pk sa sa passe mais pas le canva de mes couilles la wesh</div>
+
+            <div id="game">
+                <script src="game.js"></script>
+            </div>
+
         </main>
-
-
-
     </body>
 </html>
