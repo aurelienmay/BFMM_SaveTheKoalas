@@ -53,3 +53,95 @@ p{
 #rules{
     margin: auto;
 }
+#top_arrows{
+    visibility: hidden;
+}
+#other_arrows{
+    visibility: hidden;
+}
+@media screen and (max-width: 770px){
+    button{
+        width: 90px;
+        height: 50px;
+        padding: 5px;
+        font-size: 15px;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+    main>div>h1{
+        padding: 5px;
+        font-size: 25px;
+    }
+    #menu{
+        width: 100%;
+        flex-direction: row;
+    }
+    main{
+        flex-direction: column;
+    }
+    canvas{
+        width: 100%;
+    }
+    p{
+        padding: 5px;
+        font-size: 20px;
+        margin-right: auto;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    img{
+        width: 20%;
+    }
+    body{
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+        position: fixed;
+    }
+    header{
+        margin-bottom: 15px;
+    }
+    #play{
+        padding: 0px;
+    }
+    #arrows{
+    }
+    #top_arrow{
+        background: none;
+        background-image: url(ressources/images/website/top_arrow.png);
+        background-size:cover;
+        width: 60px;
+        height: 60px;
+        border-radius: 0px;
+        padding: 0px;
+        margin: 0px;
+        visibility: visible;
+    }
+    #top_arrows{
+        margin: auto;
+    }
+    #other_arrows{
+        margin: auto;
+    }
+    #other_arrows>button{
+        background-size:cover;
+        width: 60px;
+        height: 60px;
+        border-radius: 0px;
+        padding: 0px;
+        margin: 0px;
+        visibility: visible;
+    }
+    #left_arrow{
+        background: none;
+        background-image: url(ressources/images/website/left_arrow.png);
+    }
+    #bottom_arrow{
+        background: none;
+        background-image: url(ressources/images/website/bottom_arrow.png);
+    }
+    #right_arrow{
+        background: none;
+        background-image: url(ressources/images/website/right_arrow.png);
+    }
+}
