@@ -76,6 +76,11 @@ bushBurnedImage.onload = function () {
 }
 //var myGif = GIF("https://media.giphy.com/media/cluoH97qdlBd56Izol/giphy.gif");
 
+// RIP image
+var RIPimage = new Image();
+RIPimage.src = "ressources/images/decor/RIP1.png";
+var RIPReady = false;
+
 // Bush image
 var bushImage = new Image();
 var bush = {};
@@ -162,6 +167,7 @@ direction = null;
 koalaSaved = 0;
 var collisionMargin = 15;
 var isFMCarryingAKoala = false ;
+isDead = false;
 
 // Helicopter start information
 var helicoStartX = 1000;
@@ -577,6 +583,20 @@ var render = function () {
         ctx.drawImage(heartEmptyImage, x1, y);
         ctx.drawImage(heartEmptyImage, x2, y);
         ctx.drawImage(heartEmptyImage, x3, y);
+
+        // RIP display
+        ctx.drawImage(RIPimage, 0, 0);
+
+        // To stop the reset
+        isDead=true;
+
+        // Enter to reset
+        if(13 in keysDown){
+            life=3;
+            ammunition=3;
+            isDead=false;
+            reset();
+        }
     }
 };
 
@@ -594,7 +614,7 @@ var main = function () {
     var now = Date.now();
     var delta = now - then;
 
-    if(helicoStartY<=-10){
+    if(helicoStartY<=-10 && !isDead){
         update(delta / 1000);
     }
     render();
