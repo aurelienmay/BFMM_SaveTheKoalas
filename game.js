@@ -102,6 +102,8 @@ koalaImage.onload = function () {
     koalaReady = true;
 };
 var koala = {};
+var koalaRow ;
+var koalaCol ;
 koalaImage.src = "ressources/images/koala_50.png";
 
 // Well
@@ -328,20 +330,29 @@ function checkCollision(x, y){
                         // Put the koala where the fireman died
                         if(isFMCarryingAKoala){
                             isFMCarryingAKoala = false;
+                            // Must do it otherwise it doesn't work
+                            var x = row+1;
+                            var y = col+1;
                             switch(direction){
-                            case 'up':
-                                gameMap[row+1][col] = 8;
-                                break;
-                            case 'down':
-                                gameMap[row-1][col] = 8;
-                                break;
-                            case 'left':
-                                gameMap[row][col+1] = 8;
-                                break;
-                            case 'right':
-                                gameMap[row][col-1] = 8;
-                                break;
+                                case 'up':
+                                    gameMap[x][col] = 8;
+                                    reset();
+                                    break;
+                                case 'down':
+                                    gameMap[row-1][col] = 8;
+                                    reset();
+                                    break;
+                                case 'left':
+                                    gameMap[row][y] = 8;
+                                    reset();
+                                    break;
+                                case 'right':
+                                    gameMap[row][col-1] = 8;
+                                    reset();
+                                    break;
                             }
+//                            gameMap[koalaRow][koalaCol] = 8;
+//                            isFMCarryingAKoala = false;
                         }
                         reset();
                     }
@@ -361,9 +372,11 @@ function checkCollision(x, y){
                 case 8:
                     koala.x = col*50;
                     koala.y = row*50;
+                    koalaRow = row;
+                    koalaCol = col;
                     // Koala and fireman
-                    if(
-                        x+collisionMargin <= (koala.x + 50)
+                    if( !isFMCarryingAKoala
+                        && x+collisionMargin <= (koala.x + 50)
                         && koala.x <= (x + 50 - collisionMargin)
                         && y+collisionMargin <= (koala.y + 50)
                         && koala.y <= (y + 50 - collisionMargin))
