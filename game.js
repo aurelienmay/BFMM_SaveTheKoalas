@@ -495,6 +495,66 @@ var render = function () {
         row++;
     }
 
+// Chrono
+var startTime = 0
+var start = 0
+var end = 0
+var diff = 0
+var timerID = 0
+window.onload= chronoStart;
+function chrono(){
+	end = new Date()
+	diff = end - start
+	diff = new Date(diff)
+	var msec = diff.getMilliseconds()
+	var sec = diff.getSeconds()
+	var min = diff.getMinutes()
+	var hr = diff.getHours()-1
+	if (min < 10){
+		min = "0" + min
+	}
+	if (sec < 10){
+		sec = "0" + sec
+	}
+	if(msec < 10){
+		msec = "00" +msec
+	}
+	else if(msec < 100){
+		msec = "0" +msec
+	}
+	document.getElementById("chronotime").value = hr + ":" + min + ":" + sec + ":" + msec
+	timerID = setTimeout("chrono()", 10)
+}
+function chronoStart(){
+	document.chronoForm.startstop.value = "stop!"
+	document.chronoForm.startstop.onclick = chronoStop
+	document.chronoForm.reset.onclick = chronoReset
+	start = new Date()
+	chrono()
+}
+function chronoContinue(){
+	document.chronoForm.startstop.value = "stop!"
+	document.chronoForm.startstop.onclick = chronoStop
+	document.chronoForm.reset.onclick = chronoReset
+	start = new Date()-diff
+	start = new Date(start)
+	chrono()
+}
+function chronoReset(){
+	document.getElementById("chronotime").value = "0:00:00:000"
+	start = new Date()
+}
+function chronoStopReset(){
+	document.getElementById("chronotime").value = "0:00:00:000"
+	document.chronoForm.startstop.onclick = chronoStart
+}
+function chronoStop(){
+	document.chronoForm.startstop.value = "start!"
+	document.chronoForm.startstop.onclick = chronoContinue
+	document.chronoForm.reset.onclick = chronoStopReset
+	clearTimeout(timerID)
+}
+
     // HELICOPTER ANIMATION
     ctx.drawImage(airstripsImage, 0, 22);
     ctx.drawImage(heli1Image, helicoStartX, helicoStartY);
@@ -524,8 +584,9 @@ var render = function () {
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     var date = new Date();
-    var seconds = date.getSeconds();
-    ctx.fillText("Time " + seconds, 100, 32);
+   // var seconds = date.getSeconds();
+   // ctx.fillText("Time " + seconds, 100, 32);
+    ctx.fillText("Time " + document.getElementById("chronotime").value, 32,64);
     ctx.fillText("Koala saved : " + koalaSaved + "/1", 100, 0);
 
     // FIREMAN
@@ -584,6 +645,7 @@ var render = function () {
         ctx.drawImage(heartEmptyImage, x2, y);
         ctx.drawImage(heartEmptyImage, x3, y);
 
+
         // RIP display
         ctx.drawImage(RIPimage, 0, 0);
 
@@ -596,6 +658,7 @@ var render = function () {
             ammunition=3;
             isDead=false;
             reset();
+            chrono();
         }
     }
 };
@@ -611,8 +674,8 @@ function sleep(milliseconds) {
 
 // The main game loop
 var main = function () {
-    var now = Date.now();
-    var delta = now - then;
+   var now = Date.now();
+   var delta = now - then;
 
     if(helicoStartY<=-10 && !isDead){
         update(delta / 1000);

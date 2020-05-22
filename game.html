@@ -5,6 +5,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="menu.css">
+<form name="chronoForm">
+    <input type hidden type="text" id="chronotime" value="0:00:00:00"/>
+    <input type hidden type="button" name="startstop" value="start!" onClick="chronoStart()" />
+    <input type hidden type="button" name="reset" value="reset!" onClick="chronoReset()" />
+</form>
         <script src="menu.js"></script>
 
     </head>
