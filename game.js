@@ -48,6 +48,38 @@ function onFailedLoc(){
 //getLocalisation();
 
 /*-----------------------------------------
+GAME - LEVEL HANDLER
+-----------------------------------------*/
+var gameMap=gameMap1;
+
+// Activate or desactivate buttons
+function myFunction(x) {
+    switch(x){
+        case 1:
+            document.getElementById("lvl1").disabled = true;
+            document.getElementById("lvl2").disabled = false;
+            document.getElementById("lvl3").disabled = false;
+            gameMap=gameMap1;
+            reload();
+            break;
+        case 2:
+            document.getElementById("lvl1").disabled = false;
+            document.getElementById("lvl2").disabled = true;
+            document.getElementById("lvl3").disabled = false;
+            gameMap=gameMap2;
+            reload();
+            break;
+        case 3:
+            document.getElementById("lvl1").disabled = false;
+            document.getElementById("lvl2").disabled = false;
+            document.getElementById("lvl3").disabled = true;
+            gameMap=gameMap3;
+            reload();
+            break;
+    }
+}
+
+/*-----------------------------------------
 GAME
 -----------------------------------------*/
 // Create and define the canvas
@@ -174,25 +206,6 @@ var helicoStartX = 1000;
 var helicoStartY = 1000;
 var helicoType = 2;
 
-// Define level
-var level = 1;
-player.level = level;
-
-var gameMap;
-
-// Load the correct map corresponding to the level
-switch(level){
-    case 1:
-        var gameMap=gameMap1;
-        break;
-    case 2:
-        var gameMap=gameMap2;
-        break;
-    case 3:
-        var gameMap=gameMap3;
-        break;
-}
-
 // Handle keyboard controls
 var keysDown = {};
 
@@ -296,8 +309,8 @@ var splashing = function () {
                 splash.x = fireman.x + 50;
                 splash.y = fireman.y + 10;
                 break;
-        default:
-            splashImage.src = null;
+            default:
+                splashImage.src = null;
         }
     }
 }
@@ -307,10 +320,10 @@ var splashing = function () {
 function checkCollision(x, y){
     // Fireman with koala and safety zone
     if( isFMCarryingAKoala
-        && x <= (50 + 50)
-        && 50 <= (x + 50)
-        && y <= (50 + 50)
-        && 50 <= (y + 50))
+       && x <= (50 + 50)
+       && 50 <= (x + 50)
+       && y <= (50 + 50)
+       && 50 <= (y + 50))
     {
         koalaSaved++;
         isFMCarryingAKoala = false ;
@@ -321,7 +334,7 @@ function checkCollision(x, y){
         for(let col = 0; col < mapW; ++col)
         {
             switch(gameMap[row][col]){
-                // Burned bush
+                    // Burned bush
                 case 1:
                     bushBurned.x = col*50;
                     bushBurned.y = row*50;
@@ -357,24 +370,24 @@ function checkCollision(x, y){
                                     reset();
                                     break;
                             }
-//                            gameMap[koalaRow][koalaCol] = 8;
-//                            isFMCarryingAKoala = false;
+                            //                            gameMap[koalaRow][koalaCol] = 8;
+                            //                            isFMCarryingAKoala = false;
                         }
                         reset();
                     }
 
                     // Burned bush and splash
                     if (
-		              splash.x <= (bushBurned.x + 30)
-		              && bushBurned.x <= (splash.x + 30)
-		              && splash.y <= (bushBurned.y + 30)
-		              && bushBurned.y <= (splash.y + 30)
-	                ) {
-                      // Collision => stop the fire
-                      gameMap[row][col] = 3 ;
-	                }
+                        splash.x <= (bushBurned.x + 30)
+                        && bushBurned.x <= (splash.x + 30)
+                        && splash.y <= (bushBurned.y + 30)
+                        && bushBurned.y <= (splash.y + 30)
+                    ) {
+                        // Collision => stop the fire
+                        gameMap[row][col] = 3 ;
+                    }
                     break;
-                // Koala
+                    // Koala
                 case 8:
                     koala.x = col*50;
                     koala.y = row*50;
@@ -382,16 +395,16 @@ function checkCollision(x, y){
                     koalaCol = col;
                     // Koala and fireman
                     if( !isFMCarryingAKoala
-                        && x+collisionMargin <= (koala.x + 50)
-                        && koala.x <= (x + 50 - collisionMargin)
-                        && y+collisionMargin <= (koala.y + 50)
-                        && koala.y <= (y + 50 - collisionMargin))
+                       && x+collisionMargin <= (koala.x + 50)
+                       && koala.x <= (x + 50 - collisionMargin)
+                       && y+collisionMargin <= (koala.y + 50)
+                       && koala.y <= (y + 50 - collisionMargin))
                     {
                         gameMap[row][col] = 2;
                         isFMCarryingAKoala = true;
                     }
                     break;
-                // Well
+                    // Well
                 case 4:
                     well.x = col*50;
                     well.y = (row*50)+50;
@@ -435,6 +448,11 @@ function checkCollision(x, y){
 
 // Draw everything
 var render = function () {
+
+    //    if(resetmygame==true){
+    ////        break render;
+    //        return;
+    //    }
 
     // BACKGROUND
     if (bgReady) {
@@ -483,7 +501,7 @@ var render = function () {
                 case 8:
                     // Move every x seconds (2 now)
                     if(dateNowForKoala.getSeconds()+1 < seconds) {
-//                        makeTheKoalaMoves(mapH, mapW);
+                        //                        makeTheKoalaMoves(mapH, mapW);
                         dateNowForKoala = new Date();
                     }
                     ctx.drawImage(koalaImage, col*50, row*50);
@@ -592,13 +610,17 @@ var render = function () {
 
         // Enter to reset
         if(13 in keysDown){
-            life=3;
-            ammunition=3;
-            isDead=false;
-            reset();
+            relaod();
         }
     }
 };
+
+function reload(){
+    life=3;
+    ammunition=3;
+    isDead=false;
+    reset();
+}
 
 // Method to sleep a bit
 function sleep(milliseconds) {
@@ -611,6 +633,11 @@ function sleep(milliseconds) {
 
 // The main game loop
 var main = function () {
+    //    if(resetmygame==true){
+    ////        break main;
+    //        return;
+    //    }
+
     var now = Date.now();
     var delta = now - then;
 
