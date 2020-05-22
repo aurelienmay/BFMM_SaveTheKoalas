@@ -263,15 +263,20 @@ var update = function (modifier) {
     // Player pressing space for the splash
     document.body.onkeypress = function(e){
         if(e.keyCode == 32){
-            splashing();
-            if(ammunition>0){
-                ammunition -= 1;
-            }
+            splash();
         }
     }
 
     // Check for any collisions between fireman and (burned bush, well,...)
     checkCollision(fireman.x, fireman.y);
+}
+
+// Method to splash (used for the space key and the button for mobile)
+var splash = function(){
+    splashing();
+    if(ammunition>0){
+        ammunition -= 1;
+    }
 }
 
 // Method to remove the splash with timing

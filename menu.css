@@ -53,11 +53,9 @@ p{
 #rules{
     margin: auto;
 }
-#top_arrows{
-    visibility: hidden;
-}
-#other_arrows{
-    visibility: hidden;
+
+#mobileButtons{
+    display: none;
 }
 @media screen and (max-width: 770px){
     button{
@@ -104,44 +102,53 @@ p{
     #play{
         padding: 0px;
     }
-    #arrows{
+
+    #mobileButtons{
+        display: flex;
+        flex-direction: row;
     }
-    #top_arrow{
-        background: none;
+    #arrows button{
+        width: 60px;
+        height: 60px;
+        border-radius: 0px;
+        padding: 0px;
+        margin: 0px;
+        border: none;
+    }
+    #topButton{
+        background: white;
         background-image: url(ressources/images/website/top_arrow.png);
         background-size:cover;
-        width: 60px;
-        height: 60px;
-        border-radius: 0px;
-        padding: 0px;
-        margin: 0px;
-        visibility: visible;
     }
-    #top_arrows{
-        margin: auto;
-    }
-    #other_arrows{
-        margin: auto;
-    }
-    #other_arrows>button{
-        background-size:cover;
-        width: 60px;
-        height: 60px;
-        border-radius: 0px;
-        padding: 0px;
-        margin: 0px;
-        visibility: visible;
-    }
-    #left_arrow{
-        background: none;
-        background-image: url(ressources/images/website/left_arrow.png);
-    }
-    #bottom_arrow{
-        background: none;
+    #bottomButton{
+        background: white;
         background-image: url(ressources/images/website/bottom_arrow.png);
+        background-size:cover;
     }
-    #right_arrow{
-        background: none;
+    #leftButton{
+        background: white;
+        background-image: url(ressources/images/website/left_arrow.png);
+        background-size:cover;
+    }
+    #rightButton{
+        background: white;
         background-image: url(ressources/images/website/right_arrow.png);
+        background-size:cover;
+    }
+    #splashButton{
+        background: white;
+        background-image: url(ressources/images/website/fire_hose.png);
+        background-size:cover;
+        width: 100px;
+        height: 100px;
+    }
+    #splash{
+        margin: auto;
+    }
+    #arrows{
+        margin: auto;
+    }
+    #topArrow{
+        text-align: center;
     }
 }

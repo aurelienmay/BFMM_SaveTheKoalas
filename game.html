@@ -35,6 +35,9 @@
                 <img src="ressources/images/website/arrows.png"/>
                 <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                 <p>You must go to the koala without touching the bushes in fire ! Once you got the koala you have to bring him back to the safety zone.</p>
+
+                Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
                 <button id="ok">Ok</button>
             </div>
 
@@ -47,16 +50,24 @@
                 <script src="game.js"></script>
                 <script src="koalaMovement.js"></script>
             </canvas>
-            <div id="top_arrows">
-                <button id="top_arrow"></button>
-            </div>
-            <div id="other_arrows">
-                <button id="left_arrow"></button>
-                <button id="bottom_arrow"></button>
-                <button id="right_arrow"></button>
-            </div>
 
+            <div id=mobileButtons>
+                <div id="arrows">
+                    <div id="topArrow">
+                        <button id="topButton"></button>
+                    </div>
 
+                    <div id="otherArrows">
+                        <button id="leftButton" onmousedown="goLeft()"></button>
+                        <button id="bottomButton" onmousedown="goDown()"></button>
+                        <button id="rightButton" onmousedown="goRight()"></button>
+                    </div>
+                </div>
+
+                <div id="splash">
+                    <button id=splashButton onmousedown="splash()"></button>
+                </div>
+            </div>
         </main>
     </body>
 </html>
