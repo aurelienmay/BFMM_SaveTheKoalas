@@ -233,6 +233,7 @@ var update = function (modifier) {
             fireman.y -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_up_50.png";
             direction = "up";
+             document.getElementById("walk").play();
         }
     }
     if (40 in keysDown) { // Player holding down
@@ -241,6 +242,7 @@ var update = function (modifier) {
             fireman.y += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_down_50.png";
             direction = "down";
+            document.getElementById("walk").play();
         }
     }
     if (37 in keysDown) { // Player holding left
@@ -249,6 +251,7 @@ var update = function (modifier) {
             fireman.x -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_left_50.png";
             direction = "left";
+            document.getElementById("walk").play();
         }
     }
     if (39 in keysDown) { // Player holding right
@@ -257,6 +260,7 @@ var update = function (modifier) {
             fireman.x += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_right_50.png";
             direction = "right";
+            document.getElementById("walk").play();
         }
     }
 
@@ -264,6 +268,7 @@ var update = function (modifier) {
     document.body.onkeypress = function(e){
         if(e.keyCode == 32){
             splash();
+            document.getElementById("splash").play();
         }
     }
 
@@ -351,6 +356,7 @@ function checkCollision(x, y){
                         && bushBurned.y <= (y + 50 - collisionMargin))
                     {
                         life--;
+                        document.getElementById("damage").play();
                         // Put the koala where the fireman died
                         if(isFMCarryingAKoala){
                             isFMCarryingAKoala = false;
@@ -420,6 +426,7 @@ function checkCollision(x, y){
                        && y+collisionMargin <= (well.y + 50)
                        && well.y <= (y + 50 - collisionMargin))
                     {
+                        document.getElementById("well").play();
                         wellImage.src = "ressources/images/decor/well_emptyD_100.png";
                         window.setInterval(function(){
                             wellImage.src = "ressources/images/decor/well_empty_100.png";
@@ -467,6 +474,7 @@ var render = function () {
     // SAFE ZONE
     ctx.drawImage(safeZoneImage, 50, 50);
     if(koalaSaved==1){
+        document.getElementById("complete").play();
         ctx.drawImage(koalaImage, 70, 70)
     }
 
@@ -519,6 +527,7 @@ var render = function () {
     }
 
 // Chrono
+
 var startTime = 0
 var start = 0
 var end = 0
@@ -667,25 +676,24 @@ function chronoStop(){
         ctx.drawImage(heartEmptyImage, x1, y);
         ctx.drawImage(heartEmptyImage, x2, y);
         ctx.drawImage(heartEmptyImage, x3, y);
-
+        document.getElementById("gameOver").play();
 
         // RIP display
         ctx.drawImage(RIPimage, 0, 0);
 
+
         // To stop the reset
         isDead=true;
 
+
         // Enter to reset
         if(13 in keysDown){
-<<<<<<< HEAD
             life=3;
             ammunition=3;
             isDead=false;
             reset();
             chrono();
-=======
             relaod();
->>>>>>> origin/master
         }
     }
 };
@@ -708,10 +716,9 @@ function sleep(milliseconds) {
 
 // The main game loop
 var main = function () {
-<<<<<<< HEAD
    var now = Date.now();
    var delta = now - then;
-=======
+
     //    if(resetmygame==true){
     ////        break main;
     //        return;
@@ -719,7 +726,6 @@ var main = function () {
 
     var now = Date.now();
     var delta = now - then;
->>>>>>> origin/master
 
     if(helicoStartY<=-10 && !isDead){
         update(delta / 1000);
