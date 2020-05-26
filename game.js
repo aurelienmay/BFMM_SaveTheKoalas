@@ -693,7 +693,7 @@ function chronoStop(){
             isDead=false;
             reset();
             chrono();
-            relaod();
+            reload();
         }
     }
 };
@@ -702,6 +702,7 @@ function reload(){
     life=3;
     ammunition=3;
     isDead=false;
+    isFMCarryingAKoala=false;
     reset();
 }
 
