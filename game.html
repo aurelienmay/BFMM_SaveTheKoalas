@@ -5,17 +5,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="menu.css">
-         <audio id="walk"><source src="ressources/audio/walk.wav"></audio>
-         <audio id="splash"><source src="ressources/audio/splash.wav"></audio>
-         <audio id="damage"><source src="ressources/audio/damage.mp3"></audio>
+        <audio id="walk"><source src="ressources/audio/walk.wav"></audio>
+        <audio id="splash"><source src="ressources/audio/splash.wav"></audio>
+        <audio id="damage"><source src="ressources/audio/damage.mp3"></audio>
         <audio id="gameOver"><source src="ressources/audio/gameOver.wav"></audio>
         <audio id="complete"><source src="ressources/audio/complete.wav"></audio>
         <audio id="well"><source src="ressources/audio/well.mp3"></audio>
-<form name="chronoForm">
-    <input type hidden type="text" id="chronotime" value="0:00:00:00"/>
-    <input type hidden type="button" name="startstop" value="start!" onClick="chronoStart()" />
-    <input type hidden type="button" name="reset" value="reset!" onClick="chronoReset()" />
-</form>
+        <form name="chronoForm">
+            <input type hidden type="text" id="chronotime" value="0:00:00:00"/>
+            <input type hidden type="button" name="startstop" value="start!" onClick="chronoStart()" />
+            <input type hidden type="button" name="reset" value="reset!" onClick="chronoReset()" />
+        </form>
         <script src="menu.js"></script>
 
     </head>
@@ -25,6 +25,21 @@
         </header>
 
         <main>
+
+            <div id="player">
+                <images>
+                    <img src="ressources/images/avatar/AKangoo.png"  style="width:100px" draggable="true" ondragstart="drag(event)">
+                    <img src="ressources/images/avatar/AKoala.png"  style="width:100px" draggable="true" ondragstart="drag(event)">
+                    <img src="ressources/images/avatar/AOrnitho.png"  style="width:100px" draggable="true" ondragstart="drag(event)">
+                </images>
+                <div id="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <registration>
+                    <p>Enter your blaze: </p>
+                    <input type="text" id="name">
+                    <button onclick="setPlayerName()">Save</button>
+                </registration>
+            </div>
+
             <div id="menu">
                 <button id="playButton">Play</button>
                 <button id="rulesButton">Rules</button>

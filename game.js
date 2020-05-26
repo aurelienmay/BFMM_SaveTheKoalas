@@ -15,10 +15,26 @@ INFO MGMT
 -----------------------------------------*/
 var player = new Player();
 
-// Set the name of the player via prompt
-function setPlayerName()
-{
-    player.name = prompt("Hey fireman ! Please enter a nickname");
+function setPlayerName() {
+    player.name = document.getElementById("name").value;
+    alert("Successfully registred : " + player.name );
+}
+
+/*-----------------------------------------
+DRAG & DROP
+-----------------------------------------*/
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
 }
 
 /*-----------------------------------------
@@ -233,7 +249,7 @@ var update = function (modifier) {
             fireman.y -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_up_50.png";
             direction = "up";
-             document.getElementById("walk").play();
+            document.getElementById("walk").play();
         }
     }
     if (40 in keysDown) { // Player holding down
@@ -526,66 +542,66 @@ var render = function () {
         row++;
     }
 
-// Chrono
+    // Chrono
 
-var startTime = 0
-var start = 0
-var end = 0
-var diff = 0
-var timerID = 0
-window.onload= chronoStart;
-function chrono(){
-	end = new Date()
-	diff = end - start
-	diff = new Date(diff)
-	var msec = diff.getMilliseconds()
-	var sec = diff.getSeconds()
-	var min = diff.getMinutes()
-	var hr = diff.getHours()-1
-	if (min < 10){
-		min = "0" + min
-	}
-	if (sec < 10){
-		sec = "0" + sec
-	}
-	if(msec < 10){
-		msec = "00" +msec
-	}
-	else if(msec < 100){
-		msec = "0" +msec
-	}
-	document.getElementById("chronotime").value = hr + ":" + min + ":" + sec + ":" + msec
-	timerID = setTimeout("chrono()", 10)
-}
-function chronoStart(){
-	document.chronoForm.startstop.value = "stop!"
-	document.chronoForm.startstop.onclick = chronoStop
-	document.chronoForm.reset.onclick = chronoReset
-	start = new Date()
-	chrono()
-}
-function chronoContinue(){
-	document.chronoForm.startstop.value = "stop!"
-	document.chronoForm.startstop.onclick = chronoStop
-	document.chronoForm.reset.onclick = chronoReset
-	start = new Date()-diff
-	start = new Date(start)
-	chrono()
-}
-function chronoReset(){
-	document.getElementById("chronotime").value = "0:00:00:000"
-	start = new Date()
-}
-function chronoStopReset(){
-	document.getElementById("chronotime").value = "0:00:00:000"
-	document.chronoForm.startstop.onclick = chronoStart
-}
-function chronoStop(){
-	document.chronoForm.startstop.value = "start!"
-	document.chronoForm.startstop.onclick = chronoContinue
-	document.chronoForm.reset.onclick = chronoStopReset
-	clearTimeout(timerID)
-}
+    var startTime = 0
+    var start = 0
+    var end = 0
+    var diff = 0
+    var timerID = 0
+    //window.onload= chronoStart;
+    function chrono(){
+        end = new Date()
+        diff = end - start
+        diff = new Date(diff)
+        var msec = diff.getMilliseconds()
+        var sec = diff.getSeconds()
+        var min = diff.getMinutes()
+        var hr = diff.getHours()-1
+        if (min < 10){
+            min = "0" + min
+        }
+        if (sec < 10){
+            sec = "0" + sec
+        }
+        if(msec < 10){
+            msec = "00" +msec
+        }
+        else if(msec < 100){
+            msec = "0" +msec
+        }
+        document.getElementById("chronotime").value = hr + ":" + min + ":" + sec + ":" + msec
+        timerID = setTimeout("chrono()", 10)
+    }
+    function chronoStart(){
+        document.chronoForm.startstop.value = "stop!"
+        document.chronoForm.startstop.onclick = chronoStop
+        document.chronoForm.reset.onclick = chronoReset
+        start = new Date()
+        chrono()
+    }
+    function chronoContinue(){
+        document.chronoForm.startstop.value = "stop!"
+        document.chronoForm.startstop.onclick = chronoStop
+        document.chronoForm.reset.onclick = chronoReset
+        start = new Date()-diff
+        start = new Date(start)
+        chrono()
+    }
+    function chronoReset(){
+        document.getElementById("chronotime").value = "0:00:00:000"
+        start = new Date()
+    }
+    function chronoStopReset(){
+        document.getElementById("chronotime").value = "0:00:00:000"
+        document.chronoForm.startstop.onclick = chronoStart
+    }
+    function chronoStop(){
+        document.chronoForm.startstop.value = "start!"
+        document.chronoForm.startstop.onclick = chronoContinue
+        document.chronoForm.reset.onclick = chronoStopReset
+        clearTimeout(timerID)
+    }
 
     // HELICOPTER ANIMATION
     ctx.drawImage(airstripsImage, 0, 22);
@@ -616,8 +632,8 @@ function chronoStop(){
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     var date = new Date();
-   // var seconds = date.getSeconds();
-   // ctx.fillText("Time " + seconds, 100, 32);
+    // var seconds = date.getSeconds();
+    // ctx.fillText("Time " + seconds, 100, 32);
     ctx.fillText("Time " + document.getElementById("chronotime").value, 32,64);
     ctx.fillText("Koala saved : " + koalaSaved + "/1", 100, 0);
 
@@ -714,8 +730,8 @@ function sleep(milliseconds) {
 
 // The main game loop
 var main = function () {
-   var now = Date.now();
-   var delta = now - then;
+    var now = Date.now();
+    var delta = now - then;
 
     //    if(resetmygame==true){
     ////        break main;
