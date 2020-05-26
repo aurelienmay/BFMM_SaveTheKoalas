@@ -688,9 +688,6 @@ function chronoStop(){
 
         // Enter to reset
         if(13 in keysDown){
-            life=3;
-            ammunition=3;
-            isDead=false;
             reset();
             chrono();
             reload();
