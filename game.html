@@ -27,10 +27,12 @@
         <main>
 
             <div id="player">
+                <div id="playerheader">Click here to move</div>
+                <h1>Choose an avatar</h1>
                 <images>
-                    <img id="drag1" src="ressources/images/avatar/AKangoo.png"  style="width:100px" draggable="true" ondragstart="drag(event)">
-                    <img id="drag2" src="ressources/images/avatar/AKoala.png"  style="width:100px" draggable="true" ondragstart="drag(event)">
-                    <img id="drag3" src="ressources/images/avatar/AOrnitho.png"  style="width:100px" draggable="true" ondragstart="drag(event)">
+                    <img class="active" id="drag1" src="ressources/images/avatar/AKangoo.png" draggable="true" ondragstart="drag(event)">
+                    <img class="active" id="drag2" src="ressources/images/avatar/AKoala.png" draggable="true" ondragstart="drag(event)">
+                    <img class="active" id="drag3" src="ressources/images/avatar/AOrnitho.png" draggable="true" ondragstart="drag(event)">
                 </images>
                 <div id="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 <registration>
@@ -75,6 +77,7 @@
                 <script src="maps.js"></script>
                 <script src="game.js"></script>
                 <script src="koalaMovement.js"></script>
+                <script src="ressources/scripts/menu.js"></script>
             </canvas>
 
             <div id=mobileButtons>
