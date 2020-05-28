@@ -89,13 +89,13 @@
             <div id=mobileButtons>
                 <div id="arrows">
                     <div id="topArrow">
-                        <button id="topButton"></button>
+                        <button id="topButton" onmousedown="goUp()" onmouseup="stop()"></button>
                     </div>
 
                     <div id="otherArrows">
-                        <button id="leftButton" onmousedown="goLeft()"></button>
-                        <button id="bottomButton" onmousedown="goDown()"></button>
-                        <button id="rightButton" onmousedown="goRight()"></button>
+                        <button id="leftButton" onmousedown="goLeft()" onmouseup="stop()"></button>
+                        <button id="bottomButton" onmousedown="goDown()" onmouseup="stop()"></button>
+                        <button id="rightButton" onmousedown="goRight()" onmouseup="stop()"></button>
                     </div>
                 </div>
 

@@ -266,9 +266,34 @@ var reset = function () {
     render();
 }
 
+//For the button to move the fireman
+var goingDown = false;
+var goingUp = false;
+var goingLeft = false;
+var goingRight = false;
+
+var goDown = function(){
+    goingDown = true;
+}
+var goUp = function(){
+    goingUp = true;
+}
+var goLeft = function(){
+    goingLeft = true;
+}
+var goRight = function(){
+    goingRight = true;
+}
+var stop = function(){
+    goingDown = false;
+    goingUp = false;
+    goingLeft = false;
+    goingRight = false;
+}
+
 // Update game objects
 var update = function (modifier) {
-    if (38 in keysDown) { // Player holding up
+    if (38 in keysDown||goingUp) { // Player holding up
         // Block to border
         if(fireman.y>50){
             fireman.y -= fireman.speed * modifier;
@@ -277,7 +302,7 @@ var update = function (modifier) {
             document.getElementById("walk").play();
         }
     }
-    if (40 in keysDown) { // Player holding down
+    if (40 in keysDown||goingDown) { // Player holding down
         // Block to border
         if(fireman.y<canvas.height-100){
             fireman.y += fireman.speed * modifier;
@@ -286,7 +311,7 @@ var update = function (modifier) {
             document.getElementById("walk").play();
         }
     }
-    if (37 in keysDown) { // Player holding left
+    if (37 in keysDown||goingLeft) { // Player holding left
         // Block to border
         if(fireman.x>50){
             fireman.x -= fireman.speed * modifier;
@@ -295,7 +320,7 @@ var update = function (modifier) {
             document.getElementById("walk").play();
         }
     }
-    if (39 in keysDown) { // Player holding right
+    if (39 in keysDown||goingRight) { // Player holding right
         // Block to border
         if(fireman.x<canvas.width-100){
             fireman.x += fireman.speed * modifier;
