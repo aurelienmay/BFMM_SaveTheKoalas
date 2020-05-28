@@ -18,7 +18,7 @@ var player = new Player();
 
 function setPlayerName() {
     player.name = document.getElementById("name").value;
-    alert("Successfully registred : " + player.name );
+    alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
 }
 
 /*-----------------------------------------
@@ -41,12 +41,24 @@ function drop(ev) {
     switch(data){
         case "drag1":
             player.avatar=1;
+            document.getElementById("drag2").setAttribute("class", "disable");
+            document.getElementById("drag3").setAttribute("class", "disable");
+            document.getElementById("drag2").draggable = false;
+            document.getElementById("drag3").draggable = false;
             break;
         case "drag2":
             player.avatar=2;
+            document.getElementById("drag1").setAttribute("class", "disable");
+            document.getElementById("drag3").setAttribute("class", "disable");
+            document.getElementById("drag1").draggable = false;
+            document.getElementById("drag3").draggable = false;
             break;
         case "drag3":
             player.avatar=3;
+            document.getElementById("drag1").setAttribute("class", "disable");
+            document.getElementById("drag2").setAttribute("class", "disable");
+            document.getElementById("drag1").draggable = false;
+            document.getElementById("drag2").draggable = false;
             break;
     }
 }
@@ -74,7 +86,6 @@ function onFailedLoc(){
 }
 
 //Commented for faster rending when launched in dev.
-//setPlayerName();
 //getLocalisation();
 
 /*-----------------------------------------
