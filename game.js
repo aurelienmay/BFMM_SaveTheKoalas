@@ -556,71 +556,54 @@ var render = function () {
         row++;
     }
 
-    // Chrono
+ // Chrono
+    var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0, minutes = 0, hours = 0,
+    t;
 
-    var startTime = 0
-    var start = 0
-    var end = 0
-    var diff = 0
-    var timerID = 0
-    //window.onload= chronoStart;
-    function chrono(){
-        end = new Date()
-        diff = end - start
-        diff = new Date(diff)
-        var msec = diff.getMilliseconds()
-        var sec = diff.getSeconds()
-        var min = diff.getMinutes()
-        var hr = diff.getHours()-1
-        if (min < 10){
-            min = "0" + min
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
         }
-        if (sec < 10){
-            sec = "0" + sec
-        }
-        if(msec < 10){
-            msec = "00" +msec
-        }
-        else if(msec < 100){
-            msec = "0" +msec
-        }
-        document.getElementById("chronotime").value = hr + ":" + min + ":" + sec + ":" + msec
-        timerID = setTimeout("chrono()", 10)
     }
-    function chronoStart(){
-        document.chronoForm.startstop.value = "stop!"
-        document.chronoForm.startstop.onclick = chronoStop
-        document.chronoForm.reset.onclick = chronoReset
-        start = new Date()
-        chrono()
-    }
-    function chronoContinue(){
-        document.chronoForm.startstop.value = "stop!"
-        document.chronoForm.startstop.onclick = chronoStop
-        document.chronoForm.reset.onclick = chronoReset
-        start = new Date()-diff
-        start = new Date(start)
-        chrono()
-    }
-    function chronoReset(){
-        document.getElementById("chronotime").value = "0:00:00:000"
-        start = new Date()
-    }
-    function chronoStopReset(){
-        document.getElementById("chronotime").value = "0:00:00:000"
-        document.chronoForm.startstop.onclick = chronoStart
-    }
-    function chronoStop(){
-        document.chronoForm.startstop.value = "start!"
-        document.chronoForm.startstop.onclick = chronoContinue
-        document.chronoForm.reset.onclick = chronoStopReset
-        clearTimeout(timerID)
-    }
+
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
+timer();
+
+
+/* Start button */
+start.onclick = timer;
+
+/* Stop button */
+stop.onclick = function() {
+    clearTimeout(t);
+}
+
+/* Clear button */
+clear.onclick = function() {
+    h1.textContent = "00:00:00";
+    seconds = 0; minutes = 0; hours = 0;
+}
+
 
     // HELICOPTER ANIMATION
     ctx.drawImage(airstripsImage, 0, 22);
     ctx.drawImage(heli1Image, helicoStartX, helicoStartY);
-    var date = new Date();
+   var date = new Date();
     var seconds = date.getSeconds();
     if(dateNowForHeli.getSeconds()-0.5 < seconds && helicoStartX > -10) {
         switch(helicoType){
@@ -645,10 +628,10 @@ var render = function () {
     ctx.font = "24px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-    var date = new Date();
+   // var date = new Date();
     // var seconds = date.getSeconds();
     // ctx.fillText("Time " + seconds, 100, 32);
-    ctx.fillText("Time " + document.getElementById("chronotime").value, 32,64);
+    ctx.fillText("Time " + h1.textContent, 32,64);
     ctx.fillText("Koala saved : " + koalaSaved + "/1", 100, 0);
 
     // FIREMAN
@@ -719,7 +702,6 @@ var render = function () {
         // Enter to reset
         if(13 in keysDown){
             reset();
-            chrono();
             reload();
         }
     }
