@@ -4,6 +4,7 @@ PLAYER MNGMT
 #player img{
     height:110px;
     width:100px;
+    background: #E3FFE8;
 }
 
 img.disable {
@@ -22,13 +23,26 @@ input {
     z-index: 9;
     border: 1px solid #d3d3d3;
     text-align: center;
+    background: #E3FFE8;
+}
+
+#player > *{
+    background: #E3FFE8;
+}
+
+#name{
+    background: white;
+}
+
+registration > p{
+    background: #E3FFE8;
 }
 
 #playerheader {
     padding: 10px;
     cursor: move;
     z-index: 10;
-    background-color: #2196F3;
+    background-color: #ffd940;
 }
 
 
@@ -37,7 +51,9 @@ input {
     height: 100px;
     padding: 10px;
     border: 1px solid #aaaaaa;
+    background: white;
 }
+
 
 /*-----------------------------------------
 GENERAL
@@ -98,7 +114,20 @@ p{
     margin: auto;
 }
 
+#rules > img {
+    width: 250px;
+}
 #mobileButtons{
+    display: none;
+}
+
+#mobileRule{
+    display: none;
+}
+#fireHose{
+    display: none;
+}
+#refFireHose{
     display: none;
 }
 @media screen and (max-width: 770px){
@@ -195,4 +224,20 @@ p{
     #topArrow{
         text-align: center;
     }
+
+    #desktopRule{
+        display: none;
+    }
+    #mobileRule{
+        display: flex;
+    }
+    #fireHose{
+        display: flex;
+    }
+    #refFireHose{
+        display: flex;
+    }
+    #rules > img {
+    width: 150px;
+}
 }

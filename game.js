@@ -19,6 +19,7 @@ var player = new Player();
 function setPlayerName() {
     player.name = document.getElementById("name").value;
     alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
+    document.getElementById("player").style.display = "none";
 }
 
 /*-----------------------------------------
