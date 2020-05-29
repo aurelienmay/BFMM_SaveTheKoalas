@@ -93,6 +93,26 @@ GAME - LEVEL HANDLER
 -----------------------------------------*/
 var gameMap=gameMap1;
 
+function mapDebug(number){
+    let retour="";
+
+    for(let row = 0; row < number; ++row)
+    {
+        for(let col = 0; col < number; ++col)
+        {
+            retour+=gameMap[row][col]+", ";
+
+            if(col==(number-1)){
+                retour+="\r\n";
+            }
+        }
+    }
+
+    console.log(retour);
+}
+
+mapDebug(8);
+
 // Activate or desactivate buttons
 function myFunction(x) {
     switch(x){
@@ -100,8 +120,29 @@ function myFunction(x) {
             document.getElementById("lvl1").disabled = true;
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = false;
-            gameMap=gameMap1;
+            gameMap=[[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+     [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
+     [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+     [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+     [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
+     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+     [0, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+     [0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 0],
+     [0, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
+     [0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 0],
+     [0, 1, 1, 1, 2, 2, 3, 4, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+     [0, 1, 1, 1, 2, 3, 3, 9, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+     [0, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+     [0, 2, 2, 1, 2, 2, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
+     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 1, 1, 1, 1, 0],
+     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
+     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+//            gameMap=gameMap1;
             reload();
+            mapDebug(8);
             break;
         case 2:
             document.getElementById("lvl1").disabled = false;
@@ -109,6 +150,7 @@ function myFunction(x) {
             document.getElementById("lvl3").disabled = false;
             gameMap=gameMap2;
             reload();
+            mapDebug(8);
             break;
         case 3:
             document.getElementById("lvl1").disabled = false;
@@ -116,6 +158,7 @@ function myFunction(x) {
             document.getElementById("lvl3").disabled = true;
             gameMap=gameMap3;
             reload();
+            mapDebug(8);
             break;
     }
 }
@@ -463,6 +506,7 @@ function checkCollision(x, y){
                         // Collision => stop the fire
                         gameMap[row][col] = 3 ;
                     }
+                    mapDebug(8);
                     break;
                     // Koala
                 case 8:
