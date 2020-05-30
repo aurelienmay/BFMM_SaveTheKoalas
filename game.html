@@ -23,7 +23,9 @@
         <button type hidden id="stop">stop</button>
         <button type hidden id="clear">clear</button>
 
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="menu.js"></script>
+
     </head>
     <body>
         <header>
@@ -63,15 +65,29 @@
             </div>
 
             <div id="hallOfFame">
+
                 <h2>Hall of fame</h2>
-                <table style="width:100%">
-                    <tr>
+
+<!--                <label>Choose a level:</label>-->
+                <select id="lvlSelector">
+                    <option>Choose a level</option>
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                </select>
+
+                <table id="tableHOF" style="width:100%">
+                    <thead>
+                        <th>Classement</th>
                         <th>Nickname</th>
                         <th>Avatar</th>
                         <th>Country</th>
                         <th>Level</th>
                         <th>Score</th>
-                    </tr>
+                    </thead>
+                    <tbody id="tbodyHOF">
+                        <!-- To be filled automatically -->
+                    </tbody>
                 </table>
                 <button id="ok">Ok</button>
             </div>

@@ -44,7 +44,18 @@ window.onload = function(){
 
     //Show the hall of fame
     function hofClick(){
+        //        retrieveHOF();
         document.getElementById("hallOfFame").style.display = "";
         document.getElementById("menu").style.display = "none";
     }
 }
+
+$(function () {
+    $("#lvlSelector").change(function () {
+        var selectedText = $(this).find("option:selected").text();
+        var selectedValue = $(this).val();
+        retrieveHOF(selectedValue);
+
+        alert("Selected Text: " + selectedText + " Value: " + selectedValue);
+    });
+});

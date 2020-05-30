@@ -4,7 +4,7 @@ CLASSES
 class Player{
     constructor() {
         this.name="";
-        this.level=0;
+        this.level=1;
         this.score=0;
         this.country="";
         this.avatar=0;
@@ -12,14 +12,113 @@ class Player{
 }
 
 /*-----------------------------------------
-INFO MGMT
+PLAYER INFO MGMT
 -----------------------------------------*/
 var player = new Player();
 
+// Set player name
 function setPlayerName() {
     player.name = document.getElementById("name").value;
     alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
     document.getElementById("player").style.display = "none";
+    saveScore();
+}
+
+// Save score
+function saveScore(){
+    //localStorage.clear();
+
+    //Put object in JSON via serialization
+    var p_serizalized = JSON.stringify(player);
+    console.log(localStorage.length);
+    //Store the JSON
+    localStorage.setItem("user"+localStorage.length, p_serizalized);
+
+
+    console.log("saveScore() => serialized =>"+localStorage.length+p_serizalized+" // player=>" + player.name);
+    //    console.log(JSON.parse(localStorage.getItem("user"+6133)));
+}
+
+// Retrieve all scores
+function getScores(lvl){
+
+    console.log("getScore() => RUNNING" );
+
+    var arrayScore = [];
+    var n = localStorage.length;
+
+    console.log("getScore() => length "+n );
+
+    //Récupération des objets du bon niveau dans local storage
+    for(var i=0; i<n; i++){
+        var obj = JSON.parse(localStorage.getItem("user"+i));
+        console.log("getScore() => obj:" + obj.name);
+
+        if(obj != null){
+            if(obj.level == lvl){
+                arrayScore[i] = obj;
+            }
+        }
+    }
+
+    arrayScore.sort(function (a,b) {
+        return b.score-a.score;
+    });
+
+    return arrayScore;
+
+}
+
+// Open the hall of fame
+function retrieveHOF(lvl)
+{
+    console.log("retriveHOF running==> lvl: " + lvl);
+
+    //    tableau = document.getElementById("tableHOF");
+    tbody = document.getElementById("tbodyHOF");
+    tbody.innerHTML = "";
+
+    var arrayObj = getScores(lvl);
+    var n = arrayObj.length;
+    console.log("arrayObj==> " + arrayObj);
+    console.log("arrayObj.length==> " +n);
+
+    for(var i=0; i<n; i++){
+        var tr = document.createElement("tr");
+        var obj = arrayObj[i];
+
+        // Number of columns = 6
+        for(var j=0; j<6; j++){
+
+            var td = document.createElement("td");
+
+            switch(j){
+                case 0 :
+                    td.appendChild(document.createTextNode(i+1));
+                    break;
+                case 1 :
+                    td.appendChild(document.createTextNode(obj.name))
+                    break;
+                case 2 :
+                    td.appendChild(document.createTextNode(obj.avatar))
+                    break;
+                case 3 :
+                    td.appendChild(document.createTextNode(obj.country))
+                    break;
+                case 4 :
+                    td.appendChild(document.createTextNode(obj.level))
+                    break;
+                case 5 :
+                    td.appendChild(document.createTextNode(obj.score))
+                    break;
+            }
+
+            tr.appendChild(td);
+        }
+
+        tbody.appendChild(tr);
+    }
+
 }
 
 /*-----------------------------------------
@@ -112,7 +211,7 @@ function mapDebug(number){
     console.log(retour);
 }
 
-mapDebug(8);
+//mapDebug(8);
 
 // Activate or desactivate buttons
 function myFunction(x) {
@@ -122,26 +221,26 @@ function myFunction(x) {
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = false;
             gameMap=[[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-     [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
-     [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-     [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-     [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
-     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-     [0, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-     [0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 0],
-     [0, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
-     [0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 0],
-     [0, 1, 1, 1, 2, 2, 3, 4, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-     [0, 1, 1, 1, 2, 3, 3, 9, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-     [0, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-     [0, 2, 2, 1, 2, 2, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
-     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 1, 1, 1, 1, 0],
-     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
-     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-//            gameMap=gameMap1;
+                     [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
+                     [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+                     [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+                     [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
+                     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+                     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+                     [0, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+                     [0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 0],
+                     [0, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
+                     [0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 0],
+                     [0, 1, 1, 1, 2, 2, 3, 4, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+                     [0, 1, 1, 1, 2, 3, 3, 9, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+                     [0, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+                     [0, 2, 2, 1, 2, 2, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
+                     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+                     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 1, 1, 1, 1, 0],
+                     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
+                     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+            //            gameMap=gameMap1;
             reload();
             mapDebug(8);
             break;
@@ -507,7 +606,7 @@ function checkCollision(x, y){
                         // Collision => stop the fire
                         gameMap[row][col] = 3 ;
                     }
-                    mapDebug(8);
+                    //                    mapDebug(8);
                     break;
                     // Koala
                 case 8:
@@ -637,54 +736,54 @@ var render = function () {
         row++;
     }
 
- // Chrono
+    // Chrono
     var h1 = document.getElementsByTagName('h1')[0],
-    start = document.getElementById('start'),
-    stop = document.getElementById('stop'),
-    clear = document.getElementById('clear'),
-    seconds = 0, minutes = 0, hours = 0,
-    t;
+        start = document.getElementById('start'),
+        stop = document.getElementById('stop'),
+        clear = document.getElementById('clear'),
+        seconds = 0, minutes = 0, hours = 0,
+        t;
 
-function add() {
-    seconds++;
-    if (seconds >= 60) {
-        seconds = 0;
-        minutes++;
-        if (minutes >= 60) {
-            minutes = 0;
-            hours++;
+    function add() {
+        seconds++;
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
         }
+
+        h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+        timer();
+    }
+    function timer() {
+        t = setTimeout(add, 1000);
+    }
+    timer();
+
+
+    /* Start button */
+    start.onclick = timer;
+
+    /* Stop button */
+    stop.onclick = function() {
+        clearTimeout(t);
     }
 
-    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-
-    timer();
-}
-function timer() {
-    t = setTimeout(add, 1000);
-}
-timer();
-
-
-/* Start button */
-start.onclick = timer;
-
-/* Stop button */
-stop.onclick = function() {
-    clearTimeout(t);
-}
-
-/* Clear button */
-clear.onclick = function() {
-    h1.textContent = "00:00:00";
-    seconds = 0; minutes = 0; hours = 0;
-}
+    /* Clear button */
+    clear.onclick = function() {
+        h1.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+    }
 
 
     // HELICOPTER ANIMATION
     ctx.drawImage(airstripsImage, 0, 22);
     ctx.drawImage(heli1Image, helicoStartX, helicoStartY);
-   var date = new Date();
+    var date = new Date();
     var seconds = date.getSeconds();
     if(dateNowForHeli.getSeconds()-0.5 < seconds && helicoStartX > -10) {
         switch(helicoType){
@@ -709,7 +808,7 @@ clear.onclick = function() {
     ctx.font = "24px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-   // var date = new Date();
+    // var date = new Date();
     // var seconds = date.getSeconds();
     // ctx.fillText("Time " + seconds, 100, 32);
     ctx.fillText("Time " + h1.textContent, 32,64);
@@ -778,6 +877,7 @@ clear.onclick = function() {
 
         // To stop the reset
         isDead=true;
+
 
 
         // Enter to reset

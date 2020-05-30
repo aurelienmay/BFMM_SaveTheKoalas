@@ -95,6 +95,15 @@ main{
     padding: 20px;
     margin: auto;
 }
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: blue;
+  color: white;
+}
 button{
     padding-top: 10px;
     padding-bottom: 10px;
@@ -244,6 +253,6 @@ p{
         display: flex;
     }
     #rules > img {
-    width: 150px;
-}
+        width: 150px;
+    }
 }
