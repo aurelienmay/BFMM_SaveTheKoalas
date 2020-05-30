@@ -89,6 +89,12 @@ main{
     padding: 20px;
     margin: auto;
 }
+#hallOfFame{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: auto;
+}
 button{
     padding-top: 10px;
     padding-bottom: 10px;

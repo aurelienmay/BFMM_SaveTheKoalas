@@ -51,7 +51,7 @@
             <div id="menu">
                 <button id="playButton">Play</button>
                 <button id="rulesButton">Rules</button>
-                <button>Hall of fame</button>
+                <button id="hofButton">Hall of fame</button>
                 <button onclick="window.location.href = 'Website/description.html';">Website</button>
             </div>
 
@@ -60,6 +60,20 @@
                 <button onclick="myFunction(2)" id="lvl2">Level 2 </button>
                 <button onclick="myFunction(3)" id="lvl3">Level 3</button>
                 <button id="cancel">Cancel</button>
+            </div>
+
+            <div id="hallOfFame">
+                <h2>Hall of fame</h2>
+                <table style="width:100%">
+                    <tr>
+                        <th>Nickname</th>
+                        <th>Avatar</th>
+                        <th>Country</th>
+                        <th>Level</th>
+                        <th>Score</th>
+                    </tr>
+                </table>
+                <button id="ok">Ok</button>
             </div>
 
             <div id="rules">
@@ -76,22 +90,18 @@
 
                 <img id="fireHose" src="ressources/images/website/fire_hose.png"/>
                 <div id="refFireHose">
-                Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+                    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
                 </div>
 
 
                 <button id="ok">Ok</button>
             </div>
 
-            <div id="hallfame">
-                <h1>Hall of fame</h1>
-            </div>
-
             <canvas id="canvas">
                 <script src="maps.js"></script>
                 <script src="game.js"></script>
                 <script src="koalaMovement.js"></script>
-                <script src="ressources/scripts/menu.js"></script>
+                <script src="ressources/scripts/dragElement.js"></script>
             </canvas>
 
             <div id=mobileButtons>
