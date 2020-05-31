@@ -194,7 +194,7 @@ GAME - LEVEL HANDLER
 var gameMap=[[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                      [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
                      [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-                     [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+                     [0, 2, 8, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
                      [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
                      [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
                      [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
@@ -346,13 +346,23 @@ var isWellFull = true;
 var wellTextImage = new Image();
 wellTextImage.src = "";
 
-// Helicopter images
+// Helicopter image
 var heli1Image = new Image();
 heli1Image.src = "ressources/images/decor/Helicopter/helicopter_1.png";
 
 // Helicopter airstrips
 var airstripsImage = new Image();
 airstripsImage.src = "ressources/images/decor/Helicopter/H1.png";
+
+// Trophy image
+var trophyImage = new Image();
+trophyImage.src = "ressources/images/decor/Trophy.png";
+var trophyImageX = 284;
+var trophyImageY = -500;
+
+// Fireworks image
+var fireworksImage = new Image();
+fireworksImage.src = "ressources/images/decor/fireworks.png";
 
 // Splash
 var splashStateImage = new Image();
@@ -900,6 +910,25 @@ var render = function () {
     if(koalaSaved == nbKoalasToSave){
         // To stop the reset
         isDead=true;
+
+        // Score font
+        ctx.fillStyle = "rgb(0, 0, 0)";
+        ctx.font="bold 30px Helvetica";
+
+        // Speed of the trophy
+        trophyImageY+=10;
+
+        // Trophy animation from top to middle
+        if(trophyImageY<300){
+            ctx.drawImage(trophyImage, trophyImageX, trophyImageY);
+            ctx.fillText("*score*", 470,trophyImageY+100);
+        }else{
+            ctx.drawImage(trophyImage, trophyImageX, 300);
+            ctx.drawImage(fireworksImage, 50, 150);
+            ctx.drawImage(fireworksImage, 700, 150);
+//            ctx.drawImage(fireworksImage, trophyImageX, 300);
+            ctx.fillText("*score*", 470, 400);
+        }
 
         // Enter to reset
         if(13 in keysDown){
