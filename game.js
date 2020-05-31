@@ -191,36 +191,7 @@ function onFailedLoc(){
 /*-----------------------------------------
 GAME - LEVEL HANDLER
 -----------------------------------------*/
-var gameMap=gameMap1;
-
-function mapDebug(number){
-    let retour="";
-
-    for(let row = 0; row < number; ++row)
-    {
-        for(let col = 0; col < number; ++col)
-        {
-            retour+=gameMap[row][col]+", ";
-
-            if(col==(number-1)){
-                retour+="\r\n";
-            }
-        }
-    }
-
-    console.log(retour);
-}
-
-//mapDebug(8);
-
-// Activate or desactivate buttons
-function myFunction(x) {
-    switch(x){
-        case 1:
-            document.getElementById("lvl1").disabled = true;
-            document.getElementById("lvl2").disabled = false;
-            document.getElementById("lvl3").disabled = false;
-            gameMap=[[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+var gameMap=[[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                      [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
                      [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
                      [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
@@ -240,7 +211,43 @@ function myFunction(x) {
                      [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
                      [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-            //            gameMap=gameMap1;
+
+function mapDebug(number){
+    let retour="";
+
+    for(let row = 0; row < number; ++row)
+    {
+        for(let col = 0; col < number; ++col)
+        {
+            retour+=gameMap[row][col]+", ";
+
+            if(col==(number-1)){
+                retour+="\r\n";
+            }
+        }
+    }
+    console.log(retour);
+}
+
+function setTheMap(mapLevel){
+    for(let row = 0; row < mapH; ++row){
+        for(let col = 0; col < mapW; ++col){
+            gameMap[row][col] = mapLevel[row][col];
+        }
+    }
+}
+
+//mapDebug(8);
+
+// Activate or desactivate buttons
+function myFunction(x) {
+    switch(x){
+        case 1:
+            document.getElementById("lvl1").disabled = true;
+            document.getElementById("lvl2").disabled = false;
+            document.getElementById("lvl3").disabled = false;
+            setTheMap(gameMap1);
+            nbKoalasToSave=1;
             reload();
             mapDebug(8);
             break;
@@ -248,7 +255,8 @@ function myFunction(x) {
             document.getElementById("lvl1").disabled = false;
             document.getElementById("lvl2").disabled = true;
             document.getElementById("lvl3").disabled = false;
-            gameMap=gameMap2;
+            setTheMap(gameMap2);
+            nbKoalasToSave=2;
             reload();
             mapDebug(8);
             break;
@@ -256,7 +264,8 @@ function myFunction(x) {
             document.getElementById("lvl1").disabled = false;
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = true;
-            gameMap=gameMap3;
+            setTheMap(gameMap3);
+            nbKoalasToSave=3;
             reload();
             mapDebug(8);
             break;
@@ -384,6 +393,7 @@ koalaSaved = 0;
 var collisionMargin = 15;
 var isFMCarryingAKoala = false ;
 isDead = false;
+var nbKoalasToSave=1;
 
 // Helicopter start information
 var helicoStartX = 1000;
@@ -812,7 +822,7 @@ var render = function () {
     // var seconds = date.getSeconds();
     // ctx.fillText("Time " + seconds, 100, 32);
     ctx.fillText("Time " + h1.textContent, 32,64);
-    ctx.fillText("Koala saved : " + koalaSaved + "/1", 100, 0);
+    ctx.fillText("Koala saved : " + koalaSaved + "/" + nbKoalasToSave, 100, 0);
 
     // FIREMAN
     if (firemanReady && helicoStartY <= -10) {
@@ -849,36 +859,47 @@ var render = function () {
     var x2=x1+80;
     var x3=x2+80;
     var y=10;
-    if(life == 1){
-        ctx.drawImage(heartFullImage, x1, y);
-        ctx.drawImage(heartEmptyImage, x2, y);
-        ctx.drawImage(heartEmptyImage, x3, y);
+    switch(life){
+        case 3:
+            ctx.drawImage(heartFullImage, x1, y);
+            ctx.drawImage(heartFullImage, x2, y);
+            ctx.drawImage(heartFullImage, x3, y);
+            break;
+        case 2:
+            ctx.drawImage(heartFullImage, x1, y);
+            ctx.drawImage(heartFullImage, x2, y);
+            ctx.drawImage(heartEmptyImage, x3, y);
+            break;
+        case 1:
+            ctx.drawImage(heartFullImage, x1, y);
+            ctx.drawImage(heartEmptyImage, x2, y);
+            ctx.drawImage(heartEmptyImage, x3, y);
+            break;
+        case 0:
+            ctx.drawImage(heartEmptyImage, x1, y);
+            ctx.drawImage(heartEmptyImage, x2, y);
+            ctx.drawImage(heartEmptyImage, x3, y);
+            document.getElementById("gameOver").play();
+
+            // RIP display
+            ctx.drawImage(RIPimage, 0, 0);
+
+
+            // To stop the reset
+            isDead=true;
+
+            // Enter to reset
+            if(13 in keysDown){
+                reset();
+                reload();
+            }
+            break;
     }
-    if(life == 2){
-        ctx.drawImage(heartFullImage, x1, y);
-        ctx.drawImage(heartFullImage, x2, y);
-        ctx.drawImage(heartEmptyImage, x3, y);
-    }
-    if(life == 3){
-        ctx.drawImage(heartFullImage, x1, y);
-        ctx.drawImage(heartFullImage, x2, y);
-        ctx.drawImage(heartFullImage, x3, y);
-    }
 
-    if (life == 0){
-        ctx.drawImage(heartEmptyImage, x1, y);
-        ctx.drawImage(heartEmptyImage, x2, y);
-        ctx.drawImage(heartEmptyImage, x3, y);
-        document.getElementById("gameOver").play();
-
-        // RIP display
-        ctx.drawImage(RIPimage, 0, 0);
-
-
+    // Level finished
+    if(koalaSaved == nbKoalasToSave){
         // To stop the reset
         isDead=true;
-
-
 
         // Enter to reset
         if(13 in keysDown){
@@ -892,6 +913,7 @@ function reload(){
     life=3;
     ammunition=3;
     isDead=false;
+    koalaSaved=0;
     isFMCarryingAKoala=false;
     reset();
 }
