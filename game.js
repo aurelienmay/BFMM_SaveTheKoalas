@@ -26,7 +26,7 @@ function setPlayerName() {
 
 // Save score
 function saveScore(){
-    localStorage.clear();
+    //localStorage.clear();
 
     //Put object in JSON via serialization
     var p_serizalized = JSON.stringify(player);

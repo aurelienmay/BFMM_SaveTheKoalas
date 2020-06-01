@@ -125,12 +125,20 @@ button{
 th, td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
     font-size: 20px;
+    background-color: white;
 }
 th {
-  background-color: #003366;
-  color: white;
+    background-color: #003366;
+    color: white;
+}
+tbody img{
+    background: white;
+}
+#tableHOF{
+    background: black;
+    padding: 0px;
+    margin: 0px;
 }
 #lvlSelector{
     font-size: 20px;
@@ -226,6 +234,9 @@ MOBILE DISPLAY
     }
     #lvlSelector{
     font-size: 15px;
+    }
+    #okHOF{
+        margin-top: 10px;
     }
 
     /*Style for the game buttons*/
