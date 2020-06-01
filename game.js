@@ -284,6 +284,7 @@ function setTheMap(mapLevel){
 
 // Activate or desactivate buttons
 function myFunction(x) {
+    mapLevel = x;
     switch(x){
         case 1:
             document.getElementById("lvl1").disabled = true;
@@ -450,6 +451,7 @@ var collisionMargin = 15;
 var isFMCarryingAKoala = false ;
 isDead = false;
 var nbKoalasToSave=1;
+var mapLevel = 1;
 
 // Helicopter start information
 var helicoStartX = 1000;
@@ -904,12 +906,12 @@ var render = function () {
             ctx.drawImage(RIPimage, 0, 0);
 //            deathSound.ended();
 
-
             // To stop the reset
             isDead=true;
 
             // Enter to reset
             if(13 in keysDown){
+                myFunction(mapLevel);
                 reset();
                 reload();
             }
@@ -938,13 +940,12 @@ var render = function () {
             ctx.drawImage(trophyImage, trophyImageX, 300);
             ctx.drawImage(fireworksImage, 50, 150);
             ctx.drawImage(fireworksImage, 700, 150);
-//            ctx.drawImage(fireworksImage, trophyImageX, 300);
             ctx.fillText(counter.textContent, 470, 400);
 //            completeSound.ended();
         }
         // Enter to reset
         if(13 in keysDown){
-            console.log("Enter");
+            myFunction(mapLevel);
             reset();
             reload();
         }
