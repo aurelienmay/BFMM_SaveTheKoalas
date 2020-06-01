@@ -472,7 +472,7 @@ var reset = function () {
     fireman.y = 50;
     //    firemanImage.src = "ressources/images/FM_down_50.png";
     //    wellImage.src = "ressources/images/decor/well_full_100.png";
-    render();
+//    render();
 }
 
 //For the button to move the fireman
@@ -837,7 +837,7 @@ var render = function () {
     // var date = new Date();
     // var seconds = date.getSeconds();
     // ctx.fillText("Time " + seconds, 100, 32);
-    ctx.fillText("Time " + counter.textContent, 32,64);
+    ctx.fillText("Score " + counter.textContent, 800, 965);
     ctx.fillText("Koala saved : " + koalaSaved + "/" + nbKoalasToSave, 100, 0);
 
     // FIREMAN
@@ -902,7 +902,7 @@ var render = function () {
 
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
-            deathSound.ended();
+//            deathSound.ended();
 
 
             // To stop the reset
@@ -940,10 +940,11 @@ var render = function () {
             ctx.drawImage(fireworksImage, 700, 150);
 //            ctx.drawImage(fireworksImage, trophyImageX, 300);
             ctx.fillText(counter.textContent, 470, 400);
-            completeSound.ended();
+//            completeSound.ended();
         }
         // Enter to reset
         if(13 in keysDown){
+            console.log("Enter");
             reset();
             reload();
         }
