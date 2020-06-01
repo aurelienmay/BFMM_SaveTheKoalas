@@ -1,5 +1,5 @@
 /*-----------------------------------------
-CLASSES
+CLASS(ES)
 -----------------------------------------*/
 class Player{
     constructor() {
@@ -26,7 +26,7 @@ function setPlayerName() {
 
 // Save score
 function saveScore(){
-    //localStorage.clear();
+    localStorage.clear();
 
     //Put object in JSON via serialization
     var p_serizalized = JSON.stringify(player);
@@ -49,7 +49,7 @@ function getScores(lvl){
 
     console.log("getScore() => length "+n );
 
-    //Récupération des objets du bon niveau dans local storage
+    // Retrieving objects of the correct level from local storage
     for(var i=0; i<n; i++){
         var obj = JSON.parse(localStorage.getItem("user"+i));
         console.log("getScore() => obj:" + obj.name);
@@ -88,6 +88,7 @@ function retrieveHOF(lvl)
         var obj = arrayObj[i];
 
         // Number of columns = 6
+        // Add rows in the Hall Of Fame
         for(var j=0; j<6; j++){
 
             var td = document.createElement("td");
@@ -100,7 +101,38 @@ function retrieveHOF(lvl)
                     td.appendChild(document.createTextNode(obj.name))
                     break;
                 case 2 :
-                    td.appendChild(document.createTextNode(obj.avatar))
+                    //Draw avatar in the column avatar for each row
+                    switch(obj.avatar){
+                        case 2:
+                            var img = document.createElement('img');
+                            img.src = "ressources/images/avatar/AKangoo.png";
+                            img.style.height="55px";
+                            img.style.width="50px";
+                            td.appendChild(img);
+                            break;
+                        case 2:
+                            var img = document.createElement('img');
+                            img.src = "ressources/images/avatar/AKangoo.png";
+                            img.style.height="55px";
+                            img.style.width="50px";
+                            td.appendChild(img);
+                            break;
+                        case 3:
+                            var img = document.createElement('img');
+                            img.src = "ressources/images/avatar/AKangoo.png";
+                            img.style.height="55px";
+                            img.style.width="50px";
+                            td.appendChild(img);
+                            break;
+                            //Unknow or 0 which is the default value
+                        default:
+                            var img = document.createElement('img');
+                            img.src = "ressources/images/avatar/AWorm.png";
+                            img.style.height="55px";
+                            img.style.width="50px";
+                            td.appendChild(img);
+                            break;
+                    }
                     break;
                 case 3 :
                     td.appendChild(document.createTextNode(obj.country))
@@ -112,17 +144,14 @@ function retrieveHOF(lvl)
                     td.appendChild(document.createTextNode(obj.score))
                     break;
             }
-
             tr.appendChild(td);
         }
-
         tbody.appendChild(tr);
     }
-
 }
 
 /*-----------------------------------------
-DRAG & DROP
+DRAG & DROP MNGMT
 -----------------------------------------*/
 function allowDrop(ev) {
     ev.preventDefault();
@@ -192,8 +221,8 @@ function onFailedLoc(){
     player.country = "Unknown"
 }
 
-//Commented for faster rending when launched in dev.
-//Call function getLocalisation
+/*Commented for faster rending when launched in dev.*/
+/*Call function getLocalisation*/
 getLocalisation();
 
 /*-----------------------------------------
@@ -203,34 +232,34 @@ var counter = document.getElementById('counter');
 var intervalID = NaN;
 
 function incrementTime() {
-	var time = counter.innerHTML.split(":")
-	time[2] = ("0" + (Number(time[2]) + 1) % 60).slice(-2);
-	if (time[2] == "00") {
-		time[1] = ("0" + (Number(time[1]) + 1) % 60).slice(-2);
-		if (time[1] == "00") {
-			time[0] = (Number(time[0]) + 1) % 10;
-			if (time[0] == "0") {
-				resetClicked();
-			}
-		}
-	}
-	counter.innerHTML = time.join(":")
+    var time = counter.innerHTML.split(":")
+    time[2] = ("0" + (Number(time[2]) + 1) % 60).slice(-2);
+    if (time[2] == "00") {
+        time[1] = ("0" + (Number(time[1]) + 1) % 60).slice(-2);
+        if (time[1] == "00") {
+            time[0] = (Number(time[0]) + 1) % 10;
+            if (time[0] == "0") {
+                resetClicked();
+            }
+        }
+    }
+    counter.innerHTML = time.join(":")
 }
 
 function startClicked() {
-	if (isNaN(intervalID)){
-		intervalID = setInterval(incrementTime, 1000);
-	}
+    if (isNaN(intervalID)){
+        intervalID = setInterval(incrementTime, 1000);
+    }
 }
 
 function stopClicked() {
-	clearInterval(intervalID);
-	intervalID = NaN;
+    clearInterval(intervalID);
+    intervalID = NaN;
 }
 
 function resetClicked() {
-	counter.innerHTML = "0:00:00";
-	intervalID = NaN;
+    counter.innerHTML = "0:00:00";
+    intervalID = NaN;
 }
 
 
@@ -243,25 +272,25 @@ document.getElementById('reset').addEventListener("click", resetClicked);
 GAME - LEVEL HANDLER
 -----------------------------------------*/
 var gameMap=[[9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                     [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
-                     [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-                     [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-                     [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
-                     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-                     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
-                     [0, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-                     [0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 0],
-                     [0, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
-                     [0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 0],
-                     [0, 1, 1, 1, 2, 2, 3, 4, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-                     [0, 1, 1, 1, 2, 3, 3, 9, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-                     [0, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-                     [0, 2, 2, 1, 2, 2, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
-                     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-                     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 1, 1, 1, 1, 0],
-                     [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
-                     [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
-                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+             [9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0],
+             [0, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+             [0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+             [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
+             [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+             [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0],
+             [0, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+             [0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 0],
+             [0, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
+             [0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 0],
+             [0, 1, 1, 1, 2, 2, 3, 4, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+             [0, 1, 1, 1, 2, 3, 3, 9, 9, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+             [0, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+             [0, 2, 2, 1, 2, 2, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0],
+             [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+             [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 1, 1, 1, 1, 0],
+             [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0],
+             [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 
 function mapDebug(number){
     let retour="";
@@ -485,7 +514,7 @@ var reset = function () {
     fireman.y = 50;
     //    firemanImage.src = "ressources/images/FM_down_50.png";
     //    wellImage.src = "ressources/images/decor/well_full_100.png";
-//    render();
+    //    render();
 }
 
 //For the button to move the fireman
@@ -763,7 +792,7 @@ var render = function () {
     // SAFE ZONE
     ctx.drawImage(safeZoneImage, 50, 50);
     if(koalaSaved==1){
-          // completeSound.ended();
+        // completeSound.ended();
         ctx.drawImage(koalaImage, 70, 70)
     }
 
@@ -915,7 +944,7 @@ var render = function () {
 
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
-//            deathSound.ended();
+            //            deathSound.ended();
 
             // To stop the reset
             isDead=true;
@@ -952,7 +981,7 @@ var render = function () {
             ctx.drawImage(fireworksImage, 50, 150);
             ctx.drawImage(fireworksImage, 700, 150);
             ctx.fillText(counter.textContent, 470, 400);
-//            completeSound.ended();
+            //            completeSound.ended();
         }
         // Enter to reset
         if(13 in keysDown){

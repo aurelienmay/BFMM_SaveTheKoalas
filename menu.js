@@ -50,11 +50,27 @@ window.onload = function(){
     }
 }
 
+//Hall Of Fame - Prevent bugs with keydown/keyup
+function IgnoreAlpha(e) {
+    if (!e) {
+        e = window.event;
+    }
+    //Disable all keyboard shortcut to prevent bugs
+    if (e.keyCode >= 0 && e.keyCode <= 300) // A to Z
+    {
+        e.returnValue = false;
+        e.cancel = true;
+    }
+}
+
+//HTML - Behavior for hall of fame level selector
 $(function () {
     $("#lvlSelector").change(function () {
         var selectedText = $(this).find("option:selected").text();
         var selectedValue = $(this).val();
         retrieveHOF(selectedValue);
+
+        console.log(selectedValue);
 
         alert("Selected Text: " + selectedText + " Value: " + selectedValue);
     });

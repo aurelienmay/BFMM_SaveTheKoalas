@@ -12,15 +12,12 @@
         <audio id="complete"><source src="ressources/audio/complete.wav"></audio>
         <audio id="well"><source src="ressources/audio/well.mp3"></audio>
 
- <div>
-	<h1 type hidden id="counter">0:00:00</h1>
-	<button type hidden id="stop">STOP</button>
-	<button type hidden id="start">START</button>
-	<button type hidden id="reset">RESET</button>
-</div>
-
-        <script src="menu.js"></script>
-
+        <div>
+            <h1 type hidden id="counter">0:00:00</h1>
+            <button type hidden id="stop">STOP</button>
+            <button type hidden id="start">START</button>
+            <button type hidden id="reset">RESET</button>
+        </div>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="menu.js"></script>
@@ -67,8 +64,8 @@
 
                 <h2>Hall of fame</h2>
 
-<!--                <label>Choose a level:</label>-->
-                <select id="lvlSelector">
+                <!--                <label>Choose a level:</label>-->
+                <select id="lvlSelector" onkeydown="IgnoreAlpha(event);" onkeyup="IgnoreAlpha(event);">
                     <option>Choose a level</option>
                     <option value="1">Level 1</option>
                     <option value="2">Level 2</option>
