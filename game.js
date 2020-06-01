@@ -112,14 +112,14 @@ function retrieveHOF(lvl)
                             break;
                         case 2:
                             var img = document.createElement('img');
-                            img.src = "ressources/images/avatar/AKangoo.png";
+                            img.src = "ressources/images/avatar/AKoala.png";
                             img.style.height="55px";
                             img.style.width="50px";
                             td.appendChild(img);
                             break;
                         case 3:
                             var img = document.createElement('img');
-                            img.src = "ressources/images/avatar/AKangoo.png";
+                            img.src = "ressources/images/avatar/AOrnitho.png";
                             img.style.height="55px";
                             img.style.width="50px";
                             td.appendChild(img);
