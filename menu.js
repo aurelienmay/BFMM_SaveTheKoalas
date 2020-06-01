@@ -1,52 +1,59 @@
 window.onload = function(){
+    //Hide the levels the rules and the hall of fame
     document.getElementById("play").style.display = "none";
     document.getElementById("rules").style.display = "none";
     document.getElementById("hallOfFame").style.display = "none";
 
     //Declare the buttons
     var rulesButton = document.getElementById("rulesButton");
-    var okButton = document.getElementById("ok");
+    var okRulesButton = document.getElementById("okRules");
     var playButton = document.getElementById("playButton");
     var cancelButton = document.getElementById("cancel");
     var hofButton = document.getElementById("hofButton");
+    var okHOFButton = document.getElementById("okHOF");
 
     //Add event listener to the buttons
     rulesButton.addEventListener("click", rulesClick);
-    okButton.addEventListener("click", okClick);
+    okRulesButton.addEventListener("click", okRulesClick);
     playButton.addEventListener("click", playClick);
     cancelButton.addEventListener("click", cancelClick);
     hofButton.addEventListener("click", hofClick);
+    okHOFButton.addEventListener("click", okHOFClick);
 
-    //Show the rules and hide the menu
+    //Show rules
     function rulesClick(){
         document.getElementById("rules").style.display = "";
         document.getElementById("menu").style.display = "none";
     }
 
-    //Show the menu and hide the rules
-    function okClick(){
+    //Hide rules
+    function okRulesClick(){
         document.getElementById("menu").style.display = "";
         document.getElementById("rules").style.display = "none";
-        document.getElementById("hallOfFame").style.display = "none";
     }
 
-    //Show the choice of level and hide the menu
+    //Show levels
     function playClick(){
         document.getElementById("play").style.display = "";
         document.getElementById("menu").style.display = "none";
     }
 
-    //Show the menu and hide the choice of level
+    //Hide levels
     function cancelClick(){
         document.getElementById("menu").style.display = "";
         document.getElementById("play").style.display = "none";
     }
 
-    //Show the hall of fame
+    //Show hall of fame
     function hofClick(){
-        //        retrieveHOF();
         document.getElementById("hallOfFame").style.display = "";
         document.getElementById("menu").style.display = "none";
+    }
+
+    //Hide hall of fame
+    function okHOFClick(){
+        document.getElementById("menu").style.display = "";
+        document.getElementById("hallOfFame").style.display = "none";
     }
 }
 

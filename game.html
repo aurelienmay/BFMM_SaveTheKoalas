@@ -40,7 +40,7 @@
                 </images>
                 <div id="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 <registration>
-                    <p>Enter your blaze: </p>
+                    <p>Enter your name: </p>
                     <input type="text" id="name">
                     <button onclick="setPlayerName()">Save</button>
                 </registration>
@@ -62,7 +62,7 @@
 
             <div id="hallOfFame">
 
-                <h2>Hall of fame</h2>
+                <h1>Hall of fame</h2>
 
                 <!--                <label>Choose a level:</label>-->
                 <select id="lvlSelector" onkeydown="IgnoreAlpha(event);" onkeyup="IgnoreAlpha(event);">
@@ -85,7 +85,7 @@
                         <!-- To be filled automatically -->
                     </tbody>
                 </table>
-                <button id="ok">Ok</button>
+                <button id="okHOF">Ok</button>
             </div>
 
             <div id="rules">
@@ -106,7 +106,7 @@
                 </div>
 
 
-                <button id="ok">Ok</button>
+                <button id="okRules">Ok</button>
             </div>
 
             <canvas id="canvas">
