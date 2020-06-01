@@ -168,17 +168,24 @@ GEOLOCALISATION MGMT
 -----------------------------------------*/
 function getLocalisation()
 {
-    // Controls whether the browser supports localization
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(onSuccessLoc, onFailedLoc); // One parameter if it succeeds and one if it fails
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+            $.ajax('http://www.datasciencetoolkit.org/coordinates2politics/'
+                   + position.coords.latitude + ','
+                   + position.coords.longitude, {dataType: 'jsonp'})
+                .done(function(data, textStatus, jqXHR) {
+                if ( textStatus === 'success' ) {
+                    var country = data[0].politics[0].name
+                    player.country=country;
+                }
+            })
+        })
+
     }
     else{
         onFailedLoc();
     }
-}
-
-function onSuccessLoc(){
-
 }
 
 function onFailedLoc(){
@@ -186,11 +193,12 @@ function onFailedLoc(){
 }
 
 //Commented for faster rending when launched in dev.
-//getLocalisation();
+//Call function getLocalisation
+getLocalisation();
 
-
-
-// Chrono
+/*-----------------------------------------
+CHRONO MGMT - Samuel
+-----------------------------------------*/
 var counter = document.getElementById('counter');
 var intervalID = NaN;
 
@@ -295,6 +303,7 @@ function myFunction(x) {
             nbKoalasToSave=1;
             reload();
             mapDebug(8);
+            player.level=1;
             break;
         case 2:
             document.getElementById("lvl1").disabled = false;
@@ -305,6 +314,7 @@ function myFunction(x) {
             nbKoalasToSave=2;
             reload();
             mapDebug(8);
+            player.level=2;
             break;
         case 3:
             document.getElementById("lvl1").disabled = false;
@@ -315,6 +325,7 @@ function myFunction(x) {
             nbKoalasToSave=3;
             reload();
             mapDebug(8);
+            player.level=3;
             break;
     }
 }
