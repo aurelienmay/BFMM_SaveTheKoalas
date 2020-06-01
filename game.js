@@ -103,7 +103,7 @@ function retrieveHOF(lvl)
                 case 2 :
                     //Draw avatar in the column avatar for each row
                     switch(obj.avatar){
-                        case 2:
+                        case 1:
                             var img = document.createElement('img');
                             img.src = "ressources/images/avatar/AKangoo.png";
                             img.style.height="55px";
