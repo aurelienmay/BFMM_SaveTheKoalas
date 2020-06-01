@@ -188,6 +188,49 @@ function onFailedLoc(){
 //Commented for faster rending when launched in dev.
 //getLocalisation();
 
+
+
+// Chrono
+var counter = document.getElementById('counter');
+var intervalID = NaN;
+
+function incrementTime() {
+	var time = counter.innerHTML.split(":")
+	time[2] = ("0" + (Number(time[2]) + 1) % 60).slice(-2);
+	if (time[2] == "00") {
+		time[1] = ("0" + (Number(time[1]) + 1) % 60).slice(-2);
+		if (time[1] == "00") {
+			time[0] = (Number(time[0]) + 1) % 10;
+			if (time[0] == "0") {
+				resetClicked();
+			}
+		}
+	}
+	counter.innerHTML = time.join(":")
+}
+
+function startClicked() {
+	if (isNaN(intervalID)){
+		intervalID = setInterval(incrementTime, 1000);
+	}
+}
+
+function stopClicked() {
+	clearInterval(intervalID);
+	intervalID = NaN;
+}
+
+function resetClicked() {
+	counter.innerHTML = "0:00:00";
+	intervalID = NaN;
+}
+
+
+document.getElementById('start').addEventListener("click", startClicked);
+document.getElementById('stop').addEventListener("click", stopClicked);
+document.getElementById('reset').addEventListener("click", resetClicked);
+
+
 /*-----------------------------------------
 GAME - LEVEL HANDLER
 -----------------------------------------*/
@@ -247,6 +290,7 @@ function myFunction(x) {
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = false;
             setTheMap(gameMap1);
+            resetClicked();
             nbKoalasToSave=1;
             reload();
             mapDebug(8);
@@ -256,6 +300,7 @@ function myFunction(x) {
             document.getElementById("lvl2").disabled = true;
             document.getElementById("lvl3").disabled = false;
             setTheMap(gameMap2);
+            resetClicked();
             nbKoalasToSave=2;
             reload();
             mapDebug(8);
@@ -265,6 +310,7 @@ function myFunction(x) {
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = true;
             setTheMap(gameMap3);
+            resetClicked();
             nbKoalasToSave=3;
             reload();
             mapDebug(8);
@@ -704,7 +750,7 @@ var render = function () {
     // SAFE ZONE
     ctx.drawImage(safeZoneImage, 50, 50);
     if(koalaSaved==1){
-        document.getElementById("complete").play();
+          // completeSound.ended();
         ctx.drawImage(koalaImage, 70, 70)
     }
 
@@ -756,48 +802,7 @@ var render = function () {
         row++;
     }
 
-    // Chrono
-    var h1 = document.getElementsByTagName('h1')[0],
-        start = document.getElementById('start'),
-        stop = document.getElementById('stop'),
-        clear = document.getElementById('clear'),
-        seconds = 0, minutes = 0, hours = 0,
-        t;
 
-    function add() {
-        seconds++;
-        if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
-        }
-
-        h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-
-        timer();
-    }
-    function timer() {
-        t = setTimeout(add, 1000);
-    }
-    timer();
-
-
-    /* Start button */
-    start.onclick = timer;
-
-    /* Stop button */
-    stop.onclick = function() {
-        clearTimeout(t);
-    }
-
-    /* Clear button */
-    clear.onclick = function() {
-        h1.textContent = "00:00:00";
-        seconds = 0; minutes = 0; hours = 0;
-    }
 
 
     // HELICOPTER ANIMATION
@@ -819,6 +824,7 @@ var render = function () {
         helicoStartX-=4;
         helicoStartY-=4;
         dateNowForHeli = new Date();
+        startClicked();
     }else{
         heli1Image.src = "ressources/images/decor/Helicopter/helicopter_s_2.png";
     }
@@ -831,7 +837,7 @@ var render = function () {
     // var date = new Date();
     // var seconds = date.getSeconds();
     // ctx.fillText("Time " + seconds, 100, 32);
-    ctx.fillText("Time " + h1.textContent, 32,64);
+    ctx.fillText("Time " + counter.textContent, 32,64);
     ctx.fillText("Koala saved : " + koalaSaved + "/" + nbKoalasToSave, 100, 0);
 
     // FIREMAN
@@ -889,10 +895,14 @@ var render = function () {
             ctx.drawImage(heartEmptyImage, x1, y);
             ctx.drawImage(heartEmptyImage, x2, y);
             ctx.drawImage(heartEmptyImage, x3, y);
-            document.getElementById("gameOver").play();
+            var deathSound = document.getElementById("gameOver");
+
+            deathSound.play();
+
 
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
+            deathSound.ended();
 
 
             // To stop the reset
@@ -909,8 +919,10 @@ var render = function () {
     // Level finished
     if(koalaSaved == nbKoalasToSave){
         // To stop the reset
+        var completeSound = document.getElementById("complete");
+        completeSound.play();
         isDead=true;
-
+        stopClicked();
         // Score font
         ctx.fillStyle = "rgb(0, 0, 0)";
         ctx.font="bold 30px Helvetica";
@@ -921,15 +933,15 @@ var render = function () {
         // Trophy animation from top to middle
         if(trophyImageY<300){
             ctx.drawImage(trophyImage, trophyImageX, trophyImageY);
-            ctx.fillText("*score*", 470,trophyImageY+100);
+            ctx.fillText(counter.textContent, 470,trophyImageY+100);
         }else{
             ctx.drawImage(trophyImage, trophyImageX, 300);
             ctx.drawImage(fireworksImage, 50, 150);
             ctx.drawImage(fireworksImage, 700, 150);
 //            ctx.drawImage(fireworksImage, trophyImageX, 300);
-            ctx.fillText("*score*", 470, 400);
+            ctx.fillText(counter.textContent, 470, 400);
+            completeSound.ended();
         }
-
         // Enter to reset
         if(13 in keysDown){
             reset();

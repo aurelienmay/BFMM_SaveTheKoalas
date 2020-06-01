@@ -11,17 +11,16 @@
         <audio id="gameOver"><source src="ressources/audio/gameOver.wav"></audio>
         <audio id="complete"><source src="ressources/audio/complete.wav"></audio>
         <audio id="well"><source src="ressources/audio/well.mp3"></audio>
-        <form name="chronoForm">
-            <input type hidden type="text" id="chronotime" value="0:00:00:00"/>
-            <input type hidden type="button" name="startstop" value="start!" onClick="chronoStart()" />
-            <input type hidden type="button" name="reset" value="reset!" onClick="chronoReset()" />
-        </form>
+
+ <div>
+	<h1 type hidden id="counter">0:00:00</h1>
+	<button type hidden id="stop">STOP</button>
+	<button type hidden id="start">START</button>
+	<button type hidden id="reset">RESET</button>
+</div>
+
         <script src="menu.js"></script>
 
-        <h1 type hidden><time id="chronotime">00:00:00</time></h1>
-        <button type hidden id="start">start</button>
-        <button type hidden id="stop">stop</button>
-        <button type hidden id="clear">clear</button>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="menu.js"></script>
