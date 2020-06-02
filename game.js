@@ -559,7 +559,6 @@ var update = function (modifier) {
             fireman.y -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_up_50.png";
             direction = "up";
-            document.getElementById("walk").play();
         }
     }
     if (40 in keysDown||goingDown) { // Player holding down
@@ -568,7 +567,6 @@ var update = function (modifier) {
             fireman.y += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_down_50.png";
             direction = "down";
-            document.getElementById("walk").play();
         }
     }
     if (37 in keysDown||goingLeft) { // Player holding left
@@ -577,7 +575,6 @@ var update = function (modifier) {
             fireman.x -= fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_left_50.png";
             direction = "left";
-            document.getElementById("walk").play();
         }
     }
     if (39 in keysDown||goingRight) { // Player holding right
@@ -586,7 +583,6 @@ var update = function (modifier) {
             fireman.x += fireman.speed * modifier;
             firemanImage.src = "ressources/images/FM_right_50.png";
             direction = "right";
-            document.getElementById("walk").play();
         }
     }
 
@@ -594,7 +590,6 @@ var update = function (modifier) {
     document.body.onkeypress = function(e){
         if(e.keyCode == 32){
             splash();
-            document.getElementById("splash").play();
         }
     }
 
@@ -634,24 +629,28 @@ var splashing = function () {
                 removeTheSplash();
                 splash.x = fireman.x + 10;
                 splash.y = fireman.y - 30;
+                document.getElementById("splash").play();
                 break;
             case 'down':
                 splashImage.src = "ressources/images/splash_d.png";
                 removeTheSplash();
                 splash.x = fireman.x + 10;
                 splash.y = fireman.y + 50;
+                document.getElementById("splash").play();
                 break;
             case 'left':
                 splashImage.src = "ressources/images/splash_l.png";
                 removeTheSplash();
                 splash.x = fireman.x - 30;
                 splash.y = fireman.y + 10;
+                document.getElementById("splash").play();
                 break;
             case 'right':
                 splashImage.src = "ressources/images/splash_r.png";
                 removeTheSplash();
                 splash.x = fireman.x + 50;
                 splash.y = fireman.y + 10;
+                document.getElementById("splash").play();
                 break;
             default:
                 splashImage.src = null;
@@ -748,6 +747,7 @@ function checkCollision(x, y){
                        && y+collisionMargin <= (koala.y + 50)
                        && koala.y <= (y + 50 - collisionMargin))
                     {
+                        document.getElementById("koala").play();
                         gameMap[row][col] = 2;
                         isFMCarryingAKoala = true;
                     }
