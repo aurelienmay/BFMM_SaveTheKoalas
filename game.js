@@ -795,6 +795,8 @@ function checkCollision(x, y){
 //    return Math.round(num / 50)*50;
 //}
 
+var uniqueInstance=true;
+
 // Draw everything
 var render = function () {
 
@@ -963,9 +965,13 @@ var render = function () {
 
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
-            deathSound.play();
             stopClicked();
 
+            //This won't loop !!!
+            if(uniqueInstance==true){
+                deathSound.play();
+                uniqueInstance=false;
+            }
 
             // To stop the reset
             isDead=true;
@@ -973,6 +979,7 @@ var render = function () {
             // Enter to reset
             if(13 in keysDown){
                 enterToRestart()
+                uniqueInstance=true;
             }
             break;
     }
@@ -981,13 +988,13 @@ var render = function () {
     if(koalaSaved == nbKoalasToSave){
         // To stop the reset
         var completeSound = document.getElementById("complete");
-        var hasPlayed = false;
 
-        if(hasPlayed==false){
-         completeSound.play();
-             hasPlayed = true;
+        //This won't loop !!!
+        if(uniqueInstance==true){
+            document.getElementById("player").style.display = "block";
+            uniqueInstance=false;
+            completeSound.play();
         }
-
 
         stopClicked();
         isDead=true;
@@ -1012,6 +1019,7 @@ var render = function () {
         // Enter to reset
         if(13 in keysDown){
             enterToRestart();
+            uniqueInstance=true;
         }
     }
 };
@@ -1052,7 +1060,7 @@ var main = function () {
     then = now;
 
     // Request to do this again ASAP
-    // a checker !
+    // a checker ! seems correct after all...
     requestAnimationFrame(main);
 };
 
