@@ -213,7 +213,7 @@ MOBILE DISPLAY
 
     /*Style for Rules*/
     #rules > img {
-        width: 150px;
+        width: 80px;
     }
     #desktopRule{
         display: none;
@@ -230,13 +230,18 @@ MOBILE DISPLAY
 
     /*Style for Hall of Fame*/
     th, td {
-    font-size: 15px;
+        font-size: 15px;
+        padding: 0px;
     }
     #lvlSelector{
-    font-size: 15px;
+        font-size: 15px;
     }
     #okHOF{
         margin-top: 10px;
+    }
+    #hallOfFame{
+        width: 100%;
+        padding: 0px;
     }
 
     /*Style for the game buttons*/
@@ -245,8 +250,8 @@ MOBILE DISPLAY
         flex-direction: row;
     }
     #arrows button{
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border-radius: 0px;
         padding: 0px;
         margin: 0px;
@@ -276,8 +281,8 @@ MOBILE DISPLAY
         background: white;
         background-image: url(ressources/images/website/fire_hose.png);
         background-size:cover;
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
     #splash{
         margin: auto;
@@ -287,5 +292,26 @@ MOBILE DISPLAY
     }
     #topArrow{
         text-align: center;
+    }
+    #enter{
+        margin: auto;
+    }
+    #enterButton{
+        background: white;
+        background-image: url(ressources/images/decor/unnamed.png);
+        background-size:cover;
+        width: 80px;
+        height: 80px;
+    }
+    /*Special layout for Iphone 5*/
+    @media screen and (max-width: 350px){
+        p{
+            padding: 0px;
+            margin: 0px;
+            font-size: 18px;
+        }
+        th, td {
+            font-size: 13px;
+        }
     }
 }

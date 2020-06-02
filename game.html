@@ -119,18 +119,22 @@
             <div id=mobileButtons>
                 <div id="arrows">
                     <div id="topArrow">
-                        <button id="topButton" onmousedown="goUp()" onmouseup="stop()"></button>
+                        <button id="topButton" ontouchstart="goUp()" ontouchend="stop()"></button>
                     </div>
 
                     <div id="otherArrows">
-                        <button id="leftButton" onmousedown="goLeft()" onmouseup="stop()"></button>
-                        <button id="bottomButton" onmousedown="goDown()" onmouseup="stop()"></button>
-                        <button id="rightButton" onmousedown="goRight()" onmouseup="stop()"></button>
+                        <button id="leftButton" ontouchstart="goLeft()" ontouchend="stop()"></button>
+                        <button id="bottomButton" ontouchstart="goDown()" ontouchend="stop()"></button>
+                        <button id="rightButton" ontouchstart="goRight()" ontouchend="stop()"></button>
                     </div>
                 </div>
 
                 <div id="splash">
-                    <button id=splashButton onmousedown="splash()"></button>
+                    <button id=splashButton ontouchstart="splash()"></button>
+                </div>
+
+                <div id="enter">
+                    <button id="enterButton" ontouchstart="enterToRestart()"></button>
                 </div>
             </div>
         </main>

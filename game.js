@@ -601,6 +601,14 @@ var splash = function(){
     }
 }
 
+// Method to restart the level when the player died or won
+var enterToRestart = function(){
+    myFunction(mapLevel);
+    reset();
+    startClicked();
+    reload();
+}
+
 // Method to remove the splash with timing
 var removeTheSplash = function (){
     setTimeout (function() {
@@ -953,10 +961,7 @@ var render = function () {
 
             // Enter to reset
             if(13 in keysDown){
-                myFunction(mapLevel);
-                reset();
-                startClicked();
-                reload();
+                enterToRestart()
             }
             break;
     }
@@ -995,10 +1000,7 @@ var render = function () {
         }
         // Enter to reset
         if(13 in keysDown){
-            myFunction(mapLevel);
-            reset();
-            startClicked();
-            reload();
+            enterToRestart();
         }
     }
 };
