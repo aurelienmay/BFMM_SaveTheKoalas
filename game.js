@@ -939,12 +939,14 @@ var render = function () {
             ctx.drawImage(heartEmptyImage, x3, y);
             var deathSound = document.getElementById("gameOver");
 
-            deathSound.play();
+
 
 
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
-            //            deathSound.ended();
+            deathSound.play();
+            stopClicked();
+
 
             // To stop the reset
             isDead=true;
@@ -953,6 +955,7 @@ var render = function () {
             if(13 in keysDown){
                 myFunction(mapLevel);
                 reset();
+                startClicked();
                 reload();
             }
             break;
@@ -962,9 +965,16 @@ var render = function () {
     if(koalaSaved == nbKoalasToSave){
         // To stop the reset
         var completeSound = document.getElementById("complete");
-        completeSound.play();
-        isDead=true;
+        var hasPlayed = false;
+
+        if(hasPlayed==false){
+         completeSound.play();
+             hasPlayed = true;
+        }
+
+
         stopClicked();
+        isDead=true;
         // Score font
         ctx.fillStyle = "rgb(0, 0, 0)";
         ctx.font="bold 30px Helvetica";
@@ -987,6 +997,7 @@ var render = function () {
         if(13 in keysDown){
             myFunction(mapLevel);
             reset();
+            startClicked();
             reload();
         }
     }
