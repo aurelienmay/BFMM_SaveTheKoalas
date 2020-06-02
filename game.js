@@ -318,10 +318,12 @@ function setTheMap(mapLevel){
 }
 
 //mapDebug(8);
+var isLevelChanged=false;
 
 // Activate or desactivate buttons
 function myFunction(x) {
     mapLevel = x;
+    isLevelChanged=true;
     switch(x){
         case 1:
             document.getElementById("lvl1").disabled = true;
@@ -357,6 +359,7 @@ function myFunction(x) {
             player.level=3;
             break;
     }
+    isLevelChanged=false;
 }
 
 /*-----------------------------------------
@@ -405,6 +408,10 @@ borderImage.src = "ressources/images/decor/border.png";
 // Safe zone image
 var safeZoneImage = new Image();
 safeZoneImage.src = "ressources/images/decor/SafeZone_V1_100.png";
+
+// Dead fireman image
+var deadFMImage = new Image();
+deadFMImage.src = "ressources/images/deadFM_50.png";
 
 // Lifes image
 var heartFullImage = new Image();
@@ -492,6 +499,8 @@ var isFMCarryingAKoala = false ;
 isDead = false;
 var nbKoalasToSave=1;
 var mapLevel = 1;
+var deathLocationX ;
+var deathLocationY ;
 
 // Helicopter start information
 var helicoStartX = 1000;
@@ -709,6 +718,8 @@ function checkCollision(x, y){
                             //                            gameMap[koalaRow][koalaCol] = 8;
                             //                            isFMCarryingAKoala = false;
                         }
+                        deathLocationX = fireman.x;
+                        deathLocationY = fireman.y;
                         reset();
                     }
 
@@ -852,8 +863,8 @@ var render = function () {
         row++;
     }
 
-
-
+    // Fireman death, place a skeleton on the location the fireman died
+    ctx.drawImage(deadFMImage, deathLocationX, deathLocationY);
 
     // HELICOPTER ANIMATION
     ctx.drawImage(airstripsImage, 0, 22);
@@ -1025,9 +1036,6 @@ function sleep(milliseconds) {
 
 // The main game loop
 var main = function () {
-    var now = Date.now();
-    var delta = now - then;
-
     //    if(resetmygame==true){
     ////        break main;
     //        return;
