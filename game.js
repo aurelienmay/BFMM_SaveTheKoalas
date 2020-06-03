@@ -19,6 +19,13 @@ var player = new Player();
 // Set player name
 function setPlayerName() {
     player.name = document.getElementById("name").value;
+
+    var avMobile =document.getElementById("avatarMobile").value;
+
+    if(avMobile!=0 && avMobile<4){
+        player.avatar = document.getElementById("avatarMobile").value;
+    }
+
     alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
     document.getElementById("player").style.display = "none";
     saveScore();

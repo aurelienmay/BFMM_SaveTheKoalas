@@ -25,7 +25,7 @@ input {
 #player > *{
     background: #E3FFE8;
 }
-#name{
+#name, #avatarMobile{
     background: white;
 }
 registration > p{
@@ -43,6 +43,7 @@ registration > p{
     padding: 10px;
     border: 1px solid #aaaaaa;
     background: white;
+    display="none";
 }
 
 /*-----------------------------------------
@@ -114,6 +115,13 @@ button{
 #rules > img {
     width: 250px;
 }
+#avatarMobile{
+    display: none;
+}
+#textMobile{
+    display: none;
+}
+
 
 /*Style for Hall of Fame*/
 #hallOfFame{
@@ -173,6 +181,15 @@ MOBILE DISPLAY
     }
     main{
         flex-direction: column;
+    }
+    #avatarMobile{
+        display:inherit;
+    }
+    #textMobile{
+        display:block;
+    }
+    #dragdrop {
+        visibility: hidden;
     }
     h1{
         padding: 5px;
