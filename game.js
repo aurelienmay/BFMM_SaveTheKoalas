@@ -18,19 +18,22 @@ var player = new Player();
 
 // Set player name
 function setPlayerName() {
+    //Set name
     player.name = document.getElementById("name").value;
 
-    var avMobile =document.getElementById("avatarMobile").value;
+    //Set avatar (mobile version only)
+    var avMobile = parseInt(document.getElementById("avatarMobile").value);
 
     if(avMobile!=0 && avMobile<4){
-        player.avatar = document.getElementById("avatarMobile").value;
+        player.avatar = avMobile;
+        console.log(player.avatar);
     }
 
     alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
     document.getElementById("player").style.display = "none";
     saveScore();
 }
-
+//localStorage.clear();
 // Save score
 function saveScore(){
     //    localStorage.clear();
