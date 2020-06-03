@@ -152,12 +152,12 @@ function retrieveHOF(lvl)
                     td.appendChild(document.createTextNode(obj.level))
                     break;
                 case 5 :
-//                    console.log("My score: " + obj.score);
+                    //                    console.log("My score: " + obj.score);
                     var pHours = obj.score.substr(11,2);
                     var pMinutes = obj.score.substr(14,2);
                     var pSeconds = obj.score.substr(17,2);
                     var addTime=pHours+":"+pMinutes+":"+pSeconds;
-//                    console.log("addTime:"+addTime);
+                    //                    console.log("addTime:"+addTime);
                     td.appendChild(document.createTextNode(addTime))
                     break;
             }
@@ -228,9 +228,9 @@ function getLocalisation()
                 }
             })
         },
-       function(error) {
+                                                 function(error) {
             if (error.code == error.PERMISSION_DENIED)
-            onFailedLoc();
+                searchByIP();
         });
 
     }
@@ -241,6 +241,34 @@ function getLocalisation()
 
 function onFailedLoc(){
     player.country = "Unknown"
+}
+
+//Search country name by IP
+function searchByIP(){
+
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://api.ipdata.co/?api-key=test');
+    request.setRequestHeader('Accept', 'application/json');
+    request.send();
+
+    request.onreadystatechange = function (){
+        // Request finished
+        if (request.readyState == 4) {
+
+            var result = request.response;
+
+            var headerKey = "country_name"
+            var headerIdx = result.indexOf(headerKey) + headerKey.length+4;
+            var cntr = result.substring(headerIdx, result.indexOf('"', headerIdx));
+            cntrName=cntr+" (ip)";
+
+            player.country=cntrName;
+        }
+    }
+
+    request.onerror = function(){
+        onFailedLoc();
+    }
 }
 
 /*Commented for faster rending when launched in dev.*/

@@ -149,7 +149,11 @@ tbody img{
     margin: 0px;
 }
 #lvlSelector{
-    font-size: 20px;
+    font-size: 30px;
+    background: white;
+}
+option{
+    background: white;
 }
 
 /*Style for the mobile-only elements*/
