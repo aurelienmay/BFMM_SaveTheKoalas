@@ -26,7 +26,7 @@ function setPlayerName() {
 
 // Save score
 function saveScore(){
-    //localStorage.clear();
+    //    localStorage.clear();
 
     //Put object in JSON via serialization
     var p_serizalized = JSON.stringify(player);
@@ -61,9 +61,13 @@ function getScores(lvl){
         }
     }
 
+    //    arrayScore.sort();
+    //    arrayScore.reverse();
     arrayScore.sort(function (a,b) {
-        return b.score-a.score;
+        //        return b.score-a.score;
+        return a.score.localeCompare(b.score);
     });
+    //    arrayScore.reverse();
 
     return arrayScore;
 
@@ -141,7 +145,13 @@ function retrieveHOF(lvl)
                     td.appendChild(document.createTextNode(obj.level))
                     break;
                 case 5 :
-                    td.appendChild(document.createTextNode(obj.score))
+//                    console.log("My score: " + obj.score);
+                    var pHours = obj.score.substr(11,2);
+                    var pMinutes = obj.score.substr(14,2);
+                    var pSeconds = obj.score.substr(17,2);
+                    var addTime=pHours+":"+pMinutes+":"+pSeconds;
+//                    console.log("addTime:"+addTime);
+                    td.appendChild(document.createTextNode(addTime))
                     break;
             }
             tr.appendChild(td);
@@ -207,12 +217,17 @@ function getLocalisation()
                 if ( textStatus === 'success' ) {
                     var country = data[0].politics[0].name
                     player.country=country;
+                    console.log("SuccessLoc");
                 }
             })
-        })
+        },
+       function(error) {
+            if (error.code == error.PERMISSION_DENIED)
+            onFailedLoc();
+        });
 
     }
-    else{
+    else{ // if navigator.geolocation is false
         onFailedLoc();
     }
 }
@@ -258,7 +273,7 @@ function stopClicked() {
 }
 
 function resetClicked() {
-    counter.innerHTML = "0:00:00";
+    counter.innerHTML = "00:00:00";
     intervalID = NaN;
 }
 
@@ -984,6 +999,8 @@ var render = function () {
             break;
     }
 
+    //localStorage.clear();
+
     // Level finished
     if(koalaSaved == nbKoalasToSave){
         // To stop the reset
@@ -992,9 +1009,34 @@ var render = function () {
         //This won't loop !!!
         if(uniqueInstance==true){
             document.getElementById("player").style.display = "block";
-            uniqueInstance=false;
             completeSound.play();
+            uniqueInstance=false;
         }
+
+        var pTime=counter.textContent;
+        //        var newStr = pTime.replace(/:/g, "-");
+        //        console.log(pTime);
+        //        console.log(newStr);
+
+        var pSeconds = pTime.substring(6, 8);
+        var pMinutes = pTime.substring(3, 5);
+        var pHours = pTime.substring(0, 2);
+        //        console.log("Minutes " + pMinutes);
+        //        console.log("Seconds " + pSeconds);
+        //        console.log("Hours " + pHours);
+
+        //        var dateString="2020-01-01-T"+pHours+":"+pMinutes+":"+pSeconds+"Z";
+        //        console.log(dateString);
+
+        //        var d = new Date(dateString);
+        var pTimeString = "2020-01-01T"+pHours+":"+pMinutes+":"+pSeconds+"Z";
+        //        console.log(z);
+        var d = new Date(pTimeString);
+        //        var d = new Date('2020', '01' - 1, '1', pHours, pMinutes, pSeconds);
+
+        console.log(d);
+        player.score = d;
+
 
         stopClicked();
         isDead=true;
