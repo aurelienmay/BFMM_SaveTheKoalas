@@ -35,7 +35,7 @@
             <div id="player" style hidden>
                 <div id="playerheader">Click here to move</div>
                 <h1>Choose an avatar</h1>
-                <images>
+                <images id="images">
                     <img class="active" id="drag1" src="ressources/images/avatar/AKangoo.png" draggable="true" ondragstart="drag(event)">
                     <img class="active" id="drag2" src="ressources/images/avatar/AKoala.png" draggable="true" ondragstart="drag(event)">
                     <img class="active" id="drag3" src="ressources/images/avatar/AOrnitho.png" draggable="true" ondragstart="drag(event)">
@@ -43,6 +43,7 @@
                 <div id="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 <registration>
                     <p>Enter your name: </p>
+                    <p id="errorName" style="color: red;font-style:italic;font-size: 18px"hidden>Please enter a valid name and try again</p>
                     <input type="text" id="name">
                     <p id="textMobile" hidden>Choose your avatar (1,2 or 3)</p>
                     <input type="number" id="avatarMobile" hidden min="1" max="3" maxlength="1" size="1">

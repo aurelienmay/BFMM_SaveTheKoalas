@@ -15,15 +15,29 @@ class Player{
 PLAYER INFO MGMT
 -----------------------------------------*/
 var player = new Player();
+var old_dragdrop = $("#dragdrop").html();
+
+var old_d1 = document.getElementById("drag1");
+var old_d2 = document.getElementById("drag2");
+var old_d3 = document.getElementById("drag3");
 
 // Set player name
 function setPlayerName() {
+    console.log(old_dragdrop);
+
     //Set name
     player.name = document.getElementById("name").value;
+
+    if(player.name==""){
+        document.getElementById("errorName").style.display = "block";
+        return;
+    }
 
     //Set avatar (mobile version only)
     var avMobile = parseInt(document.getElementById("avatarMobile").value);
 
+    //If the player has choosen a good number
+    //Note: if not he will be attributed the 0 as default value
     if(avMobile!=0 && avMobile<4){
         player.avatar = avMobile;
         console.log(player.avatar);
@@ -32,6 +46,46 @@ function setPlayerName() {
     alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
     document.getElementById("player").style.display = "none";
     saveScore();
+
+    /* Code to reset all values for the player information zone*/
+    /* HTML clear input & images */
+    //Reset drag & drop images
+    var images = document.getElementById("images");
+    var img = document.createElement('img');
+
+
+    switch(player.avatar){
+        case 1:
+            images.insertBefore(old_d1, images.childNodes[0]);
+            document.getElementById("drag2").setAttribute("class", "active");
+            document.getElementById("drag3").setAttribute("class", "active");
+            document.getElementById("drag2").draggable = true;
+            document.getElementById("drag3").draggable = true;
+            break;
+        case 2:
+            images.insertBefore(old_d2, images.childNodes[2]);
+            document.getElementById("drag1").setAttribute("class", "active");
+            document.getElementById("drag3").setAttribute("class", "active");
+            document.getElementById("drag1").draggable = true;
+            document.getElementById("drag3").draggable = true;
+            break;
+        case 3:
+            document.getElementById("drag1").setAttribute("class", "active");
+            document.getElementById("drag2").setAttribute("class", "active");
+            document.getElementById("drag1").draggable = true;
+            document.getElementById("drag2").draggable = true;
+            images.appendChild(old_d3);
+            break;
+    }
+
+    //Reset avatar
+    player.avatar=0;
+
+    //Reset input name
+    document.getElementById("name").value= "";
+
+    //Clear drop zone from any image
+    $("#dragdrop").html(old_dragdrop);
 }
 //localStorage.clear();
 // Save score
@@ -379,7 +433,7 @@ function myFunction(x) {
     //    isLevelChanged=true;
     stopClicked();
     resetClicked();
-//    startClicked();
+    //    startClicked();
     isDead=false;
     gameStarted=false;
 
