@@ -456,7 +456,7 @@ bushImage.src = "ressources/images/decor/bush_50.png";
 
 // Border image
 var borderImage = new Image();
-borderImage.src = "ressources/images/decor/border.png";
+borderImage.src = "ressources/images/decor/tress.png";
 
 // Safe zone image
 var safeZoneImage = new Image();
