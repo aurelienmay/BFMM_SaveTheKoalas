@@ -371,19 +371,35 @@ function setTheMap(mapLevel){
 }
 
 //mapDebug(8);
-var isLevelChanged=false;
+//var isLevelChanged=false;
 
 // Activate or desactivate buttons
 function myFunction(x) {
     mapLevel = x;
-    isLevelChanged=true;
+    //    isLevelChanged=true;
+    stopClicked();
+    resetClicked();
+//    startClicked();
+    isDead=false;
+    gameStarted=false;
+
+    console.log("RESET FULL by myFunction()")
+
     switch(x){
         case 1:
             document.getElementById("lvl1").disabled = true;
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = false;
             setTheMap(gameMap1);
-            resetClicked();
+
+            //            isDead=true;
+            //            enterToRestart()
+            //            gameStarted=false;
+            //            isDead=true;
+            //            stopClicked();
+            //            resetClicked();
+            //            startClicked();
+            //            isDead=true;
             nbKoalasToSave=1;
             reload();
             mapDebug(8);
@@ -394,7 +410,15 @@ function myFunction(x) {
             document.getElementById("lvl2").disabled = true;
             document.getElementById("lvl3").disabled = false;
             setTheMap(gameMap2);
-            resetClicked();
+
+            //            isDead=true;
+            //            enterToRestart()
+            //            gameStarted=false;
+            //            isDead=true;
+            //            stopClicked();
+            //            resetClicked();
+            //            startClicked();
+            //            isDead=true;
             nbKoalasToSave=2;
             reload();
             mapDebug(8);
@@ -405,14 +429,23 @@ function myFunction(x) {
             document.getElementById("lvl2").disabled = false;
             document.getElementById("lvl3").disabled = true;
             setTheMap(gameMap3);
-            resetClicked();
+
+            //            isDead=true;
+            //            enterToRestart()
+            //            gameStarted=false;
+            //            isDead=true;
+            //            stopClicked();
+            //            resetClicked();
+            //            startClicked();
+            //            resetClicked();
+            //            isDead=true;
             nbKoalasToSave=3;
             reload();
             mapDebug(8);
             player.level=3;
             break;
     }
-    isLevelChanged=false;
+    //    isLevelChanged=false;
 }
 
 /*-----------------------------------------
@@ -549,7 +582,7 @@ direction = null;
 koalaSaved = 0;
 var collisionMargin = 15;
 var isFMCarryingAKoala = false ;
-isDead = false;
+isDead = true;
 var nbKoalasToSave=1;
 var mapLevel = 1;
 var deathLocationX ;
@@ -661,8 +694,7 @@ var splash = function(){
 // Method to restart the level when the player died or won
 var enterToRestart = function(){
     myFunction(mapLevel);
-    reset();
-    startClicked();
+    //    reset();
     reload();
 }
 
@@ -940,9 +972,11 @@ var render = function () {
         helicoStartX-=4;
         helicoStartY-=4;
         dateNowForHeli = new Date();
-        startClicked();
+        //        startClicked();
     }else{
         heli1Image.src = "ressources/images/decor/Helicopter/helicopter_s_2.png";
+        //        console.log("HELICOOOO ATTERRI !!!");
+        isDead = false;
     }
 
     // TEXT
@@ -1018,7 +1052,7 @@ var render = function () {
 
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
-            stopClicked();
+            //            stopClicked();
 
             //This won't loop !!!
             if(uniqueInstance==true){
@@ -1031,7 +1065,7 @@ var render = function () {
 
             // Enter to reset
             if(13 in keysDown){
-                enterToRestart()
+                enterToRestart();
                 uniqueInstance=true;
             }
             break;
@@ -1072,11 +1106,11 @@ var render = function () {
         var d = new Date(pTimeString);
         //        var d = new Date('2020', '01' - 1, '1', pHours, pMinutes, pSeconds);
 
-        console.log(d);
+        //        console.log(d);
         player.score = d;
 
 
-        stopClicked();
+        //        stopClicked();
         isDead=true;
         // Score font
         ctx.fillStyle = "rgb(0, 0, 0)";
@@ -1122,15 +1156,29 @@ function sleep(milliseconds) {
     } while (currentDate - date < milliseconds);
 }
 
+var gameStarted=false;
+//var gameStopped=false;
+
 // The main game loop
 var main = function () {
-    //    if(resetmygame==true){
-    ////        break main;
-    //        return;
-    //    }
 
     var now = Date.now();
     var delta = now - then;
+
+    //Stop the chrono
+    if(isDead && gameStarted==true){
+        stopClicked();
+        console.log("MAIN: stopclicked!");
+        gameStarted=false;
+    }
+
+    //Reset and start the chrono
+    if(!isDead && gameStarted==false){
+        resetClicked();
+        startClicked();
+        console.log("MAIN: startclicked!");
+        gameStarted=true;
+    }
 
     if(helicoStartY<=-10 && !isDead){
         update(delta / 1000);
