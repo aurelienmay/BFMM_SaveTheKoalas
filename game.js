@@ -979,13 +979,12 @@ var render = function () {
     }
 
     // TEXT
-    ctx.fillStyle = "rgb(250, 250, 250)";
-    ctx.font = "24px Helvetica";
+    ctx.fillStyle = "crimson";
+    ctx.font = "bold 26px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-
     ctx.fillText("Score " + counter.textContent, 800, 965);
-    ctx.fillText("Koala saved : " + koalaSaved + "/" + nbKoalasToSave, 100, 0);
+    ctx.fillText("Koala saved : " + koalaSaved + "/" + nbKoalasToSave, 50, 965);
 
     // FIREMAN
     if (firemanReady && helicoStartY <= -10) {
