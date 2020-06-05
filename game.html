@@ -28,10 +28,15 @@
     <body>
         <header>
             <h1>Save the koalas</h1>
+            <div id="audioPlayer">
+                <button id="playAudio" onclick="playAudio()" class="audio"><img src="ressources/images/website/play.png" width="25px"></button>
+                <button id="pauseAudio" onclick="pauseAudio()" class="audio"><img src="ressources/images/website/pause.png" width="25px"></button>
+                <button id="stopAudio" onclick="stopAudio()" class="audio"><img src="ressources/images/website/stop.png" width="25px"></button>
+                <button id="muteAudio" onclick="mute()" class="audio"><img id="muteImg" src="ressources/images/website/unmuted.png" width="25px"></button>
+            </div>
         </header>
 
         <main>
-
             <div id="player" style hidden>
                 <div id="playerheader">Click here to move</div>
                 <h1>Choose an avatar</h1>
@@ -79,18 +84,18 @@
 
                 <div style="overflow-x:auto;max-height: 400px;">
                     <table id="tableHOF" style="width:100%">
-                    <thead>
-                        <th>Rank</th>
-                        <th>Nickname</th>
-                        <th>Avatar</th>
-                        <th>Country</th>
-                        <th>Level</th>
-                        <th>Score</th>
-                    </thead>
-                    <tbody id="tbodyHOF">
-                        <!-- To be filled automatically -->
-                    </tbody>
-                </table>
+                        <thead>
+                            <th>Rank</th>
+                            <th>Nickname</th>
+                            <th>Avatar</th>
+                            <th>Country</th>
+                            <th>Level</th>
+                            <th>Score</th>
+                        </thead>
+                        <tbody id="tbodyHOF">
+                            <!-- To be filled automatically -->
+                        </tbody>
+                    </table>
                 </div>
 
                 <button id="okHOF">Ok</button>

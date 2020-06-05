@@ -1,4 +1,20 @@
 /*-----------------------------------------
+AUDIO MNGMT
+-----------------------------------------*/
+.audio{
+    width: 30px;
+    height: 30px;
+    background:chartreuse;
+/*    color:chartreuse*/
+    padding:inherit;
+    border: inherit;
+}
+
+.audio img{
+    background:chartreuse;
+}
+
+/*-----------------------------------------
 PLAYER MNGMT
 -----------------------------------------*/
 #player img{

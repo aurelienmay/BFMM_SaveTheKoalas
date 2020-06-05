@@ -1,5 +1,5 @@
 /*-----------------------------------------
-CLASS(ES)
+CLASS
 -----------------------------------------*/
 class Player{
     constructor() {
@@ -14,6 +14,8 @@ class Player{
 /*-----------------------------------------
 PLAYER INFO MGMT
 -----------------------------------------*/
+
+/* Store some html contents to reset it faster*/
 var player = new Player();
 var old_dragdrop = $("#dragdrop").html();
 
@@ -21,13 +23,13 @@ var old_d1 = document.getElementById("drag1");
 var old_d2 = document.getElementById("drag2");
 var old_d3 = document.getElementById("drag3");
 
-// Set player name
+/* Set player name */
 function setPlayerName() {
-    console.log(old_dragdrop);
 
     //Set name
     player.name = document.getElementById("name").value;
 
+    //Error for the input name
     if(player.name==""){
         document.getElementById("errorName").style.display = "block";
         return;
@@ -37,13 +39,13 @@ function setPlayerName() {
     var avMobile = parseInt(document.getElementById("avatarMobile").value);
 
     //If the player has choosen a good number
-    //Note: if not he will be attributed the 0 as default value
     if(avMobile!=0 && avMobile<4){
         player.avatar = avMobile;
         console.log(player.avatar);
     }
 
-    alert("Successfully registred : " + player.name + ", avatar: "+player.avatar);
+    //Notify user he successfully registered
+    alert("Congratulations " + player.name + " your score " + counter.textContent + " has been registred, you chose avatar number "+ player.avatar+"! Go to hall of fame to see your ranking.");
     document.getElementById("player").style.display = "none";
     saveScore();
 
@@ -52,7 +54,6 @@ function setPlayerName() {
     //Reset drag & drop images
     var images = document.getElementById("images");
     var img = document.createElement('img');
-
 
     switch(player.avatar){
         case 1:
@@ -81,26 +82,27 @@ function setPlayerName() {
     //Reset avatar
     player.avatar=0;
 
-    //Reset input name
+    //Reset input name & (mobile) avatar
     document.getElementById("name").value= "";
+    document.getElementById("avatarMobile").value= "";
+
+    //Reset error
+    document.getElementById("errorName").style.display = "none";
 
     //Clear drop zone from any image
     $("#dragdrop").html(old_dragdrop);
 }
-//localStorage.clear();
+
 // Save score
 function saveScore(){
-    //    localStorage.clear();
-
     //Put object in JSON via serialization
     var p_serizalized = JSON.stringify(player);
     console.log(localStorage.length);
     //Store the JSON
     localStorage.setItem("user"+localStorage.length, p_serizalized);
 
-
     console.log("saveScore() => serialized =>"+localStorage.length+p_serizalized+" // player=>" + player.name);
-    //    console.log(JSON.parse(localStorage.getItem("user"+6133)));
+
 }
 
 // Retrieve all scores
@@ -125,13 +127,9 @@ function getScores(lvl){
         }
     }
 
-    //    arrayScore.sort();
-    //    arrayScore.reverse();
     arrayScore.sort(function (a,b) {
-        //        return b.score-a.score;
         return a.score.localeCompare(b.score);
     });
-    //    arrayScore.reverse();
 
     return arrayScore;
 
@@ -142,7 +140,6 @@ function retrieveHOF(lvl)
 {
     console.log("retriveHOF running==> lvl: " + lvl);
 
-    //    tableau = document.getElementById("tableHOF");
     tbody = document.getElementById("tbodyHOF");
     tbody.innerHTML = "";
 
@@ -328,7 +325,6 @@ function searchByIP(){
     }
 }
 
-/*Commented for faster rending when launched in dev.*/
 /*Call function getLocalisation*/
 getLocalisation();
 
@@ -446,14 +442,6 @@ function myFunction(x) {
             document.getElementById("lvl3").disabled = false;
             setTheMap(gameMap1);
 
-            //            isDead=true;
-            //            enterToRestart()
-            //            gameStarted=false;
-            //            isDead=true;
-            //            stopClicked();
-            //            resetClicked();
-            //            startClicked();
-            //            isDead=true;
             nbKoalasToSave=1;
             reload();
             mapDebug(8);
@@ -465,14 +453,6 @@ function myFunction(x) {
             document.getElementById("lvl3").disabled = false;
             setTheMap(gameMap2);
 
-            //            isDead=true;
-            //            enterToRestart()
-            //            gameStarted=false;
-            //            isDead=true;
-            //            stopClicked();
-            //            resetClicked();
-            //            startClicked();
-            //            isDead=true;
             nbKoalasToSave=2;
             reload();
             mapDebug(8);
@@ -484,22 +464,13 @@ function myFunction(x) {
             document.getElementById("lvl3").disabled = true;
             setTheMap(gameMap3);
 
-            //            isDead=true;
-            //            enterToRestart()
-            //            gameStarted=false;
-            //            isDead=true;
-            //            stopClicked();
-            //            resetClicked();
-            //            startClicked();
-            //            resetClicked();
-            //            isDead=true;
             nbKoalasToSave=3;
             reload();
             mapDebug(8);
             player.level=3;
             break;
     }
-    //    isLevelChanged=false;
+
 }
 
 /*-----------------------------------------
@@ -511,7 +482,6 @@ var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 canvas.width = 1000;
 canvas.height = 1000;
-//document.body.appendChild(canvas);
 
 // Background image
 var bgReady = false;
@@ -529,7 +499,6 @@ bushBurnedImage.src = "ressources/images/decor/burning_bush_50.gif";
 bushBurnedImage.onload = function () {
     bushBurnedReady = true;
 }
-//var myGif = GIF("https://media.giphy.com/media/cluoH97qdlBd56Izol/giphy.gif");
 
 // RIP image
 var RIPimage = new Image();
@@ -661,9 +630,6 @@ addEventListener("keyup", function (e) {
 var reset = function () {
     fireman.x = 50;
     fireman.y = 50;
-    //    firemanImage.src = "ressources/images/FM_down_50.png";
-    //    wellImage.src = "ressources/images/decor/well_full_100.png";
-    //    render();
 }
 
 //For the button to move the fireman
@@ -748,7 +714,6 @@ var splash = function(){
 // Method to restart the level when the player died or won
 var enterToRestart = function(){
     myFunction(mapLevel);
-    //    reset();
     reload();
 }
 
@@ -930,19 +895,10 @@ function checkCollision(x, y){
     }
 }
 
-//function roundnum(num){
-//    return Math.round(num / 50)*50;
-//}
-
 var uniqueInstance=true;
 
 // Draw everything
 var render = function () {
-
-    //    if(resetmygame==true){
-    ////        break render;
-    //        return;
-    //    }
 
     // BACKGROUND
     if (bgReady) {
@@ -952,7 +908,6 @@ var render = function () {
     // SAFE ZONE
     ctx.drawImage(safeZoneImage, 50, 50);
     if(koalaSaved==1){
-        // completeSound.ended();
         ctx.drawImage(koalaImage, 70, 70)
     }
 
@@ -970,14 +925,6 @@ var render = function () {
                     ctx.drawImage(borderImage, col*50, row*50);
                     break;
                 case 1:
-                    // Fired bush animation (BANCAL AF)
-                    //                    if(dateNowForKoala.getSeconds() < seconds) {
-                    //                        if(seconds%2==0){
-                    //                            bushBurnedImage.src = "ressources/images/decor/bush_b_50.png";
-                    //                        }else{
-                    //                            bushBurnedImage.src = "ressources/images/decor/firedbush_50.png";
-                    //                        }
-                    //                    }
                     if(bushBurnedReady){
                         ctx.drawImage(bushBurnedImage, col*50, row*50);
                     }
@@ -1026,10 +973,8 @@ var render = function () {
         helicoStartX-=4;
         helicoStartY-=4;
         dateNowForHeli = new Date();
-        //        startClicked();
     }else{
         heli1Image.src = "ressources/images/decor/Helicopter/helicopter_s_2.png";
-        //        console.log("HELICOOOO ATTERRI !!!");
         isDead = false;
     }
 
@@ -1038,9 +983,7 @@ var render = function () {
     ctx.font = "24px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-    // var date = new Date();
-    // var seconds = date.getSeconds();
-    // ctx.fillText("Time " + seconds, 100, 32);
+
     ctx.fillText("Score " + counter.textContent, 800, 965);
     ctx.fillText("Koala saved : " + koalaSaved + "/" + nbKoalasToSave, 100, 0);
 
@@ -1101,12 +1044,8 @@ var render = function () {
             ctx.drawImage(heartEmptyImage, x3, y);
             var deathSound = document.getElementById("gameOver");
 
-
-
-
             // RIP display
             ctx.drawImage(RIPimage, 0, 0);
-            //            stopClicked();
 
             //This won't loop !!!
             if(uniqueInstance==true){

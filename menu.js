@@ -82,3 +82,32 @@ $(function () {
         alert("Selected Text: " + selectedText + " Value: " + selectedValue);
     });
 });
+
+//Music
+var soundPlayer = new Audio("ressources/audio/music.mp3");
+var isPlaying = false;
+
+function playAudio(){
+    soundPlayer.play();
+    isPlaying=true;
+}
+
+function pauseAudio(){
+    soundPlayer.pause();
+}
+
+function stopAudio(){
+    soundPlayer.pause();
+    soundPlayer.currentTime = 0;
+}
+
+function mute(){
+    if(soundPlayer.muted==false){
+        soundPlayer.muted = true;
+        document.getElementById("muteImg").src="ressources/images/website/muted.png";
+    }
+    else{
+        soundPlayer.muted = false;
+        document.getElementById("muteImg").src="ressources/images/website/unmuted.png";
+    }
+}
