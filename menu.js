@@ -76,10 +76,6 @@ $(function () {
         var selectedText = $(this).find("option:selected").text();
         var selectedValue = $(this).val();
         retrieveHOF(selectedValue);
-
-        console.log(selectedValue);
-
-        alert("Selected Text: " + selectedText + " Value: " + selectedValue);
     });
 });
 
