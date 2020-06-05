@@ -6,14 +6,20 @@ AUDIO MNGMT
     height: 30px;
     background:chartreuse;
 /*    color:chartreuse*/
-    padding:inherit;
+    padding:0px;
+    margin: 5px;
     border: inherit;
+}
+#audioPlayer{
+    margin: auto;
 }
 
 .audio img{
     background:chartreuse;
 }
-
+#audioPlayer button img{
+    width: 25px;
+}
 /*-----------------------------------------
 PLAYER MNGMT
 -----------------------------------------*/
@@ -182,9 +188,6 @@ option{
 #fireHose{
     display: none;
 }
-#refFireHose{
-    display: none;
-}
 /*-----------------------------------------
 MOBILE DISPLAY
 -----------------------------------------*/
@@ -259,9 +262,6 @@ MOBILE DISPLAY
         display: flex;
     }
     #fireHose{
-        display: flex;
-    }
-    #refFireHose{
         display: flex;
     }
 
