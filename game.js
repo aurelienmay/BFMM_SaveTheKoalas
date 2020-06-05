@@ -608,7 +608,7 @@ var isFMCarryingAKoala = false ;
 isDead = true;
 var nbKoalasToSave=1;
 var mapLevel = 1;
-var deathLocationX ;
+var deathLocationX = true;
 var deathLocationY ;
 
 // Helicopter start information
